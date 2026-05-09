@@ -1,0 +1,100 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  bodyClass?: string;
+}
+
+const {
+  title,
+  description = "Flow Cytometry Resources by Howie Seay",
+  bodyClass = "",
+} = Astro.props;
+
+const path = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{title}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+  <body class={bodyClass}>
+    <header id="header" class:list={[{ alt: bodyClass === "landing" }]}>
+      <h1><a href="/">this.is.how.we.see</a></h1>
+      <a href="#nav">Menu</a>
+    </header>
+
+    <nav id="nav">
+      <ul class="links">
+        <li class:list={[{ active: path === "/" }]}>
+          <a href="/">Home</a>
+        </li>
+        <li class:list={[{ active: path === "/flowsites" }]}>
+          <a href="/flowsites">Flow Resources</a>
+        </li>
+        <li class:list={[{ active: path === "/cv" }]}>
+          <a href="/cv">Curriculum Vitae</a>
+        </li>
+        <li class:list={[{ active: path === "/pubs" }]}>
+          <a href="/pubs">Publications</a>
+        </li>
+      </ul>
+    </nav>
+
+    <slot />
+
+    <footer id="footer">
+      <div class="inner">
+        <ul class="icons">
+          <li>
+            <a
+              href="https://www.facebook.com/thisishowwesee/"
+              target="_blank"
+              class="icon fa-facebook"
+            >
+              <span class="label">Facebook</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://twitter.com/HowieSeay"
+              target="_blank"
+              class="icon fa-twitter"
+            >
+              <span class="label">Twitter</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="icon fa-instagram">
+              <span class="label">Instagram</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/this-is-how-we-see/"
+              target="_blank"
+              class="icon fa-linkedin"
+            >
+              <span class="label">LinkedIn</span>
+            </a>
+          </li>
+        </ul>
+        <ul class="copyright">
+          <li>&copy; SEAYCORP.</li>
+          <li>Images: <a href="http://unsplash.com">Unsplash</a>.</li>
+          <li>Design: <a href="http://templated.co">TEMPLATED</a>.</li>
+        </ul>
+      </div>
+    </footer>
+
+    <script is:inline src="/assets/js/jquery.min.js"></script>
+    <script is:inline src="/assets/js/skel.min.js"></script>
+    <script is:inline src="/assets/js/util.js"></script>
+    <script is:inline src="/assets/js/main.js"></script>
+  </body>
+</html>
