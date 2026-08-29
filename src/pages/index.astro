@@ -1,10 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
 ---
 
 <Layout title="how|we|see" description="Flow Cytometry Resources by Howie Seay" bodyClass="landing">
   <section id="banner">
-    <i class="icon fa-flask"></i>
+    <span class="banner-icon"><Icon name="flask" /></span>
     <h2>This is Howie Seay</h2>
     <p>For better or for worse</p>
     <ul class="actions">
@@ -81,6 +82,7 @@ import Layout from "../layouts/Layout.astro";
           <a
             href="https://www.linkedin.com/in/danielle-seay-96628a172/"
             target="_blank"
+            rel="noopener noreferrer"
             class="button big alt">Get Serviced</a
           >
         </li>
@@ -94,18 +96,19 @@ import Layout from "../layouts/Layout.astro";
         <h2>Get in touch</h2>
         <p>this will go unanswered</p>
       </header>
-      <form action="#" method="POST">
-        <div class="container 75%">
-          <div class="row uniform 50%">
-            <div class="6u 12u$(xsmall)">
-              <input name="name" placeholder="Name" type="text" />
-            </div>
-            <div class="6u$ 12u$(xsmall)">
-              <input name="email" placeholder="Email" type="email" />
-            </div>
-            <div class="12u$">
-              <textarea name="message" placeholder="Message" rows="4"></textarea>
-            </div>
+      <form action="#" method="POST" class="form-narrow">
+        <div class="field-row">
+          <div>
+            <label class="visually-hidden" for="name">Name</label>
+            <input id="name" name="name" placeholder="Name" type="text" />
+          </div>
+          <div>
+            <label class="visually-hidden" for="email">Email</label>
+            <input id="email" name="email" placeholder="Email" type="email" />
+          </div>
+          <div class="full">
+            <label class="visually-hidden" for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Message" rows="4"></textarea>
           </div>
         </div>
         <ul class="actions">

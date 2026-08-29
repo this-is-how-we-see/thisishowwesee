@@ -1,4 +1,7 @@
 ---
+import Icon from "../components/Icon.astro";
+import "../styles/main.css";
+
 interface Props {
   title: string;
   description?: string;
@@ -11,7 +14,23 @@ const {
   bodyClass = "",
 } = Astro.props;
 
-const path = Astro.url.pathname;
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/flowsites", label: "Flow Resources" },
+  { href: "/euchre", label: "Euchre Odds" },
+  { href: "/cv", label: "Curriculum Vitae" },
+  { href: "/pubs", label: "Publications" },
+];
+
+const social = [
+  { href: "https://www.facebook.com/thisishowwesee/", icon: "facebook", label: "Facebook" },
+  { href: "https://twitter.com/HowieSeay", icon: "twitter", label: "Twitter" },
+  // Placeholder in the original template - still points nowhere.
+  { href: "#", icon: "instagram", label: "Instagram" },
+  { href: "https://www.linkedin.com/in/this-is-how-we-see/", icon: "linkedin", label: "LinkedIn" },
+] as const;
 ---
 
 <!doctype html>
@@ -21,83 +40,110 @@ const path = Astro.url.pathname;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&display=swap"
+    />
   </head>
-  <body class={bodyClass}>
+  <body class:list={["is-loading", bodyClass]}>
+    <a class="skip-link" href="#content">Skip to content</a>
+
     <header id="header" class:list={[{ alt: bodyClass === "landing" }]}>
       <h1><a href="/">this.is.how.we.see</a></h1>
-      <a href="#nav">Menu</a>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav">
+        <Icon name="bars" />
+        <span>Menu</span>
+      </button>
     </header>
 
-    <nav id="nav">
+    <nav id="nav" aria-label="Main">
+      <button type="button" class="nav-close" aria-label="Close menu">
+        <Icon name="times" />
+      </button>
       <ul class="links">
-        <li class:list={[{ active: path === "/" }]}>
-          <a href="/">Home</a>
-        </li>
-        <li class:list={[{ active: path === "/flowsites" }]}>
-          <a href="/flowsites">Flow Resources</a>
-        </li>
-        <li class:list={[{ active: path === "/euchre" }]}>
-          <a href="/euchre">Euchre Odds</a>
-        </li>
-        <li class:list={[{ active: path === "/cv" }]}>
-          <a href="/cv">Curriculum Vitae</a>
-        </li>
-        <li class:list={[{ active: path === "/pubs" }]}>
-          <a href="/pubs">Publications</a>
-        </li>
+        {
+          links.map((link) => (
+            <li class:list={[{ active: path === link.href }]}>
+              <a href={link.href} aria-current={path === link.href ? "page" : undefined}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
       </ul>
     </nav>
 
-    <slot />
+    <div class="nav-backdrop"></div>
+
+    <main id="content">
+      <slot />
+    </main>
 
     <footer id="footer">
       <div class="inner">
         <ul class="icons">
-          <li>
-            <a
-              href="https://www.facebook.com/thisishowwesee/"
-              target="_blank"
-              class="icon fa-facebook"
-            >
-              <span class="label">Facebook</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://twitter.com/HowieSeay"
-              target="_blank"
-              class="icon fa-twitter"
-            >
-              <span class="label">Twitter</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="icon fa-instagram">
-              <span class="label">Instagram</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.linkedin.com/in/this-is-how-we-see/"
-              target="_blank"
-              class="icon fa-linkedin"
-            >
-              <span class="label">LinkedIn</span>
-            </a>
-          </li>
+          {
+            social.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  target={item.href === "#" ? undefined : "_blank"}
+                  rel={item.href === "#" ? undefined : "noopener noreferrer"}
+                  class="icon"
+                >
+                  <Icon name={item.icon} />
+                  <span class="label">{item.label}</span>
+                </a>
+              </li>
+            ))
+          }
         </ul>
         <ul class="copyright">
           <li>&copy; SEAYCORP.</li>
-          <li>Images: <a href="http://unsplash.com">Unsplash</a>.</li>
-          <li>Design: <a href="http://templated.co">TEMPLATED</a>.</li>
+          <li>Images: <a href="https://unsplash.com">Unsplash</a>.</li>
+          <li>Design: <a href="https://templated.co">TEMPLATED</a>.</li>
         </ul>
       </div>
     </footer>
 
-    <script is:inline src="/assets/js/jquery.min.js"></script>
-    <script is:inline src="/assets/js/skel.min.js"></script>
-    <script is:inline src="/assets/js/util.js"></script>
-    <script is:inline src="/assets/js/main.js"></script>
+    <script>
+      const nav = document.getElementById("nav");
+      const toggle = document.querySelector<HTMLButtonElement>(".nav-toggle");
+      const close = document.querySelector<HTMLButtonElement>(".nav-close");
+      const backdrop = document.querySelector<HTMLElement>(".nav-backdrop");
+
+      function setNav(open: boolean) {
+        if (!nav || !toggle || !backdrop) return;
+        nav.classList.toggle("visible", open);
+        backdrop.classList.toggle("visible", open);
+        toggle.setAttribute("aria-expanded", String(open));
+        document.body.style.overflow = open ? "hidden" : "";
+        if (open) {
+          close?.focus();
+        } else {
+          toggle.focus();
+        }
+      }
+
+      toggle?.addEventListener("click", () => setNav(!nav?.classList.contains("visible")));
+      close?.addEventListener("click", () => setNav(false));
+      backdrop?.addEventListener("click", () => setNav(false));
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && nav?.classList.contains("visible")) setNav(false);
+      });
+
+      // Close the panel when a link is followed.
+      nav?.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => setNav(false));
+      });
+
+      // Re-enable transitions once the page has settled.
+      window.addEventListener("load", () => {
+        window.setTimeout(() => document.body.classList.remove("is-loading"), 100);
+      });
+    </script>
   </body>
 </html>
