@@ -869,18 +869,6 @@ ul.icons > li:last-child {
   width: auto;
 }
 
-.visually-hidden {
-  border: 0;
-  clip-path: inset(50%);
-  height: 1px;
-  margin: 0;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
 .label {
   border: 0;
   clip-path: inset(50%);
@@ -889,96 +877,6 @@ ul.icons > li:last-child {
   position: absolute;
   white-space: nowrap;
   width: 1px;
-}
-
-/* ---------- Forms ---------- */
-
-form {
-  margin: 0 0 2em 0;
-}
-
-form ul.actions {
-  margin-top: 4em;
-}
-
-.field-row {
-  display: grid;
-  gap: 0.75em;
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.field-row .full {
-  grid-column: 1 / -1;
-}
-
-.form-narrow {
-  margin-inline: auto;
-  width: 75%;
-  max-width: 100%;
-  text-align: left;
-}
-
-label {
-  display: block;
-  font-size: 0.9em;
-  font-weight: 700;
-  margin: 0 0 1em 0;
-}
-
-input[type="text"],
-input[type="password"],
-input[type="email"],
-select,
-textarea {
-  appearance: none;
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  display: block;
-  outline: 0;
-  padding: 0 1em;
-  text-decoration: none;
-  width: 100%;
-}
-
-input[type="text"],
-input[type="password"],
-input[type="email"],
-select {
-  height: 3.5em;
-  line-height: 3.5em;
-}
-
-textarea {
-  padding: 0.75em 1em;
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="email"]:focus,
-select:focus,
-textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent);
-}
-
-::placeholder {
-  color: #bbb;
-  opacity: 1;
-}
-
-.wrapper.style2 ::placeholder,
-.wrapper.style3 ::placeholder {
-  color: var(--muted);
-}
-
-.wrapper.style2 input,
-.wrapper.style2 textarea,
-.wrapper.style2 select,
-.wrapper.style3 input,
-.wrapper.style3 textarea,
-.wrapper.style3 select {
-  color: #fff;
 }
 
 /* ---------- Tables ---------- */
@@ -1257,10 +1155,6 @@ table.alt tfoot {
     grid-template-columns: repeat(2, 1fr);
     margin-bottom: 3em;
   }
-
-  .form-narrow {
-    width: 100%;
-  }
 }
 
 @media screen and (max-width: 736px) {
@@ -1306,14 +1200,6 @@ table.alt tfoot {
 
   .feature .content {
     padding: 2em 1em 0.1em 1em;
-  }
-
-  .field-row {
-    grid-template-columns: 1fr;
-  }
-
-  form ul.actions {
-    margin-top: 2em;
   }
 
   #footer .inner {

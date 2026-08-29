@@ -27,8 +27,6 @@ const links = [
 const social = [
   { href: "https://www.facebook.com/thisishowwesee/", icon: "facebook", label: "Facebook" },
   { href: "https://twitter.com/HowieSeay", icon: "twitter", label: "Twitter" },
-  // Placeholder in the original template - still points nowhere.
-  { href: "#", icon: "instagram", label: "Instagram" },
   { href: "https://www.linkedin.com/in/this-is-how-we-see/", icon: "linkedin", label: "LinkedIn" },
 ] as const;
 ---
@@ -87,12 +85,7 @@ const social = [
           {
             social.map((item) => (
               <li>
-                <a
-                  href={item.href}
-                  target={item.href === "#" ? undefined : "_blank"}
-                  rel={item.href === "#" ? undefined : "noopener noreferrer"}
-                  class="icon"
-                >
+                <a href={item.href} target="_blank" rel="noopener noreferrer" class="icon">
                   <Icon name={item.icon} />
                   <span class="label">{item.label}</span>
                 </a>
