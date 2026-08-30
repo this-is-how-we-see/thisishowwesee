@@ -269,11 +269,17 @@ b {
   text-decoration: none;
 }
 
-.wordmark span {
+.wordmark .wm-lead {
+  color: var(--text-faint);
+}
+
+/* the name means something - emphasise the part that carries it */
+.wordmark .wm-key {
   background: var(--spectral);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  font-weight: 700;
 }
 
 .nav-links {
