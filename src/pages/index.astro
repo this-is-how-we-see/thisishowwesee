@@ -1,111 +1,193 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Icon from "../components/Icon.astro";
 ---
 
-<Layout title="how|we|see" description="Flow Cytometry Resources by Howie Seay" bodyClass="landing">
-  <section id="banner">
-    <span class="banner-icon"><Icon name="flask" /></span>
-    <h2>This is Howie Seay</h2>
-    <p>For better or for worse</p>
-    <ul class="actions">
-      <li><a href="/cv" class="button big special">CV</a></li>
-    </ul>
-  </section>
+<Layout title="Howie Seay — this.is.how.we.see">
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Senior Product Manager &middot; Cellares</p>
+      <h1>Howie <span class="accent">Seay</span></h1>
+      <p class="hero-lede">
+        I turn hard biology into instruments people can actually use &mdash; flow cytometry,
+        spectral analysis, and the software behind automated cell therapy manufacturing.
+      </p>
+      <div class="hero-actions">
+        <a href="/cv" class="button special">View CV</a>
+        <a href="/flowsites" class="button">Flow Resources</a>
+      </div>
 
-  <section id="one" class="wrapper style1">
-    <div class="inner">
-      <article class="feature left">
-        <span class="image"><img src="/images/pic01.jpg" alt="" /></span>
-        <div class="content">
-          <h2>Understanding biology is hard, but flow cytometry doesn't have to be</h2>
-          <p>
-            In the age of Data Science, it is far too difficult to generate good data. By generating
-            reference data and smart algorithms, we can move science faster.
-          </p>
-          <ul class="actions">
-            <li>
-              <a href="/flowsites" class="button alt">Flow Resources</a>
-            </li>
-          </ul>
+      <div class="stats">
+        <div>
+          <span class="stat-num">15+</span>
+          <span class="stat-label">Years in cytometry</span>
         </div>
-      </article>
-      <article class="feature right">
-        <span class="image"><img src="/images/pic02.jpg" alt="" /></span>
-        <div class="content">
-          <h2>Other Musings</h2>
-          <p>
-            Side projects, simulations, and the occasional tool built to answer a question nobody
-            asked &mdash; like working out the real odds of calling a euchre hand.
-          </p>
-          <ul class="actions">
-            <li>
-              <a href="/euchre" class="button alt">Euchre Odds</a>
-            </li>
-          </ul>
+        <div>
+          <span class="stat-num">2</span>
+          <span class="stat-label">Granted patents</span>
         </div>
-      </article>
-    </div>
-  </section>
-
-  <section id="two" class="wrapper special">
-    <div class="inner">
-      <header class="major narrow">
-        <h2>In Data, We Trust</h2>
-        <p>With Patience, We Thrive</p>
-      </header>
-      <div class="image-grid">
-        <span class="image"><img src="/images/pic03.jpg" alt="" /></span>
-        <span class="image"><img src="/images/pic04.jpg" alt="" /></span>
-        <span class="image"><img src="/images/pic05.JPG" alt="" /></span>
-        <span class="image"><img src="/images/pic06.jpg" alt="" /></span>
-        <span class="image"><img src="/images/pic07.jpg" alt="" /></span>
-        <span class="image"><img src="/images/pic08.jpg" alt="" /></span>
-        <span class="image"><img src="/images/pic09.jpg" alt="" /></span>
-        <span class="image"><img src="/images/pic10.jpg" alt="" /></span>
+        <div>
+          <span class="stat-num">15+</span>
+          <span class="stat-label">Publications</span>
+        </div>
+        <div>
+          <span class="stat-num">SCYM</span>
+          <span class="stat-label">Board certified (ASCP)</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="three" class="wrapper style3 special">
-    <div class="inner">
-      <header class="major narrow">
-        <h2>Get SH*t Done</h2>
-        <p>
-          GS*D provides professional services to facilitate growth for your small business. It
-          provides skill-building workshops to improve customer DIY efforts and offers full project
-          management for customers ready to outsource.
-        </p>
-      </header>
-      <ul class="actions">
-        <li>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">01 / Focus</p>
+      <h2>What I work on</h2>
+      <p style="color: var(--text-dim); margin-bottom: 2.5rem;">
+        Three threads, one idea: measurement you can trust, at the scale medicine actually needs.
+      </p>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <p class="feature-kicker">Cell therapy manufacturing</p>
+          <h3>Making the automated line real</h3>
+          <p>
+            Product for the Cell Shuttle at Cellares &mdash; orchestration, scheduling, reagent and
+            information management across four teams and 30+ engineers. Including the traceability
+            that lets the platform make real patient doses under FDA-regulated quality systems.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <p class="feature-kicker">Cytometry &amp; spectral</p>
+          <h3>Fifteen years on the instruments</h3>
+          <p>
+            Conventional and full spectral, panel design, cell sorting, and the troubleshooting that
+            keeps a core running. Named inventor on a granted method for modelling and minimising
+            spillover spreading, and board certified as a Specialist in Cytometry.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <p class="feature-kicker">Science into software</p>
+          <h3>Requirements from the bench, not the boardroom</h3>
+          <p>
+            Gathered face to face with the scientists who use the thing &mdash; at the booth, on site,
+            in the lab. Then the business cases, pricing, and roadmaps that survive contact with
+            reality.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div>
+          <p class="eyebrow">02 / Resources</p>
+          <h2>Flow cytometry, mapped</h2>
+          <p>
+            A curated guide to the field: the communities worth joining, the books worth reading, the
+            software worth learning, and the courses worth the time. Everything I wish someone had
+            handed me on day one.
+          </p>
+          <a href="/flowsites" class="button">Browse the resources</a>
+        </div>
+        <div class="split-media">
+          <img src="/images/pic01.jpg" alt="" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div class="odds-viz" aria-hidden="true">
+          <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#22d3ee" /><stop offset="1" stop-color="#8b5cf6" />
+              </linearGradient>
+              <linearGradient id="g2" x1="0" x2="1">
+                <stop offset="0" stop-color="#8b5cf6" /><stop offset="1" stop-color="#ec4899" />
+              </linearGradient>
+            </defs>
+            <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#6b7889">
+              <text x="0" y="26">ORDER UP</text>
+              <text x="0" y="70">CALL TRUMP</text>
+              <text x="0" y="114">GO ALONE</text>
+              <text x="0" y="158">PASS</text>
+              <text x="0" y="202" fill="#98a4b3">EXPECTED POINTS</text>
+            </g>
+            <g>
+              <rect x="118" y="14" width="252" height="14" fill="rgba(242,245,247,.06)" rx="2" />
+              <rect x="118" y="14" width="196" height="14" fill="url(#g1)" rx="2" />
+              <rect x="118" y="58" width="252" height="14" fill="rgba(242,245,247,.06)" rx="2" />
+              <rect x="118" y="58" width="151" height="14" fill="url(#g1)" rx="2" />
+              <rect x="118" y="102" width="252" height="14" fill="rgba(242,245,247,.06)" rx="2" />
+              <rect x="118" y="102" width="68" height="14" fill="url(#g2)" rx="2" />
+              <rect x="118" y="146" width="252" height="14" fill="rgba(242,245,247,.06)" rx="2" />
+              <rect x="118" y="146" width="106" height="14" fill="rgba(242,245,247,.18)" rx="2" />
+            </g>
+            <g font-family="IBM Plex Mono, monospace" font-size="10" fill="#98a4b3">
+              <text x="330" y="202" text-anchor="end">+0.74</text>
+            </g>
+            <line x1="118" y1="188" x2="370" y2="188" stroke="rgba(242,245,247,.12)" />
+          </svg>
+        </div>
+        <div>
+          <p class="eyebrow">03 / Projects</p>
+          <h2>Things built to settle an argument</h2>
+          <p>
+            Side projects tend to start as a question nobody could answer at the table. The Euchre
+            odds simulator runs Monte Carlo trials across your hand, seat, and the upcard to work out
+            whether calling is actually the right move &mdash; then shows its reasoning.
+          </p>
+          <a href="/euchre" class="button">Run the numbers</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div>
+          <p class="eyebrow">04 / Elsewhere</p>
+          <h2>Get SH*t Done</h2>
+          <p>
+            GS*D helps small businesses grow &mdash; skill-building workshops for the DIY-inclined,
+            and full project management for anyone ready to hand it off. Consultation, education,
+            facilitation. Run by Danielle Seay.
+          </p>
           <a
             href="https://www.linkedin.com/in/danielle-seay-96628a172/"
             target="_blank"
             rel="noopener noreferrer"
-            class="button big alt">Get Serviced</a
+            class="button">Get serviced</a
           >
-        </li>
-      </ul>
+        </div>
+        <div class="logo-panel">
+          <img src="/images/pic11.jpg" alt="Get SH*t Done — consultation, education, facilitation" loading="lazy" />
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="four" class="wrapper style2 special">
-    <div class="inner">
-      <header class="major narrow">
-        <h2>Get in touch</h2>
-        <p>Questions about flow cytometry, product work, or something else entirely</p>
-      </header>
-      <ul class="actions">
-        <li>
-          <a
-            href="https://www.linkedin.com/in/this-is-how-we-see/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="button big special">Connect on LinkedIn</a
-          >
-        </li>
-      </ul>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">05 / Contact</p>
+      <h2>Let's talk</h2>
+      <p>
+        Flow cytometry, product work in life sciences, or something else entirely &mdash; LinkedIn is
+        the fastest way to reach me.
+      </p>
+      <a
+        href="https://www.linkedin.com/in/this-is-how-we-see/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="button special">Connect on LinkedIn</a
+      >
     </div>
   </section>
 </Layout>

@@ -1,343 +1,177 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const roles = [
+  {
+    title: "Senior Product Manager",
+    org: "Cellares",
+    meta: "South San Francisco, CA · Jun 2022 — Present",
+    points: [
+      "Lead product across four scrum teams and 30+ engineers building the software for the Cell Shuttle, a fully automated cell therapy manufacturing platform — orchestration, scheduling, reagent tracking, and information management.",
+      "Defined how three spectral analyzers integrate with an automated quality control platform running standard cell therapy flow panels, and operated them during integration testing.",
+      "Specified requirements for integrating a GMP closed cell sorter into the manufacturing process, moving cell selection inside the closed system rather than leaving it a separate open step.",
+      "Delivered the traceability and record-keeping that allow the platform to be used for real patient doses under FDA-regulated quality systems.",
+      "Demonstrate the Cell Shuttle and Cell Q to customers, work the CAR-TCR Summit booth, and run structured user research with the analysts who operate them.",
+    ],
+  },
+  {
+    title: "Senior Product Owner",
+    org: "Rosalind Bioinformatics",
+    meta: "San Diego, CA · Jan 2022 — Jun 2022",
+    points: [
+      "Led product for a genomics research platform using machine learning to turn sequencing data into evidence pharmaceutical and clinical users could act on.",
+      "Took a diagnostic monitoring system to launch with NIH RADx Tech support, alongside a FedRAMP-authorized platform used under emergency authorization to triage patients by diagnosed variant.",
+    ],
+  },
+  {
+    title: "Senior Product Owner / Product Manager",
+    org: "BD Biosciences / FlowJo",
+    meta: "Ashland, OR · Dec 2018 — Jan 2022",
+    points: [
+      "Invented and patented a method for multicolor panel design that models and minimizes spillover spreading — granted as US 11,935,629 and assigned to BD, with family members in the EU, China, and Japan.",
+      "Helped develop and test the spectral unmixing in FlowJo, the analysis software cytometrists use to unmix full spectral data.",
+      "Gathered requirements for BD Research Cloud face to face with users, application scientists, technical support, and marketing — at the BD booth at CYTO and the American Association of Immunologists annual meeting, and on customer sites.",
+      "Built the business cases, financial analyses, and ROI models BD used to decide which software to invest in, including the cloud analysis platform.",
+      "Researched licensing structure and pricing with the sales and strategy team, and maintained the competitive assessments behind that positioning.",
+    ],
+  },
+  {
+    title: "Core Research Facility Manager / Laboratory Manager",
+    org: "University of Florida",
+    meta: "Gainesville, FL · Feb 2011 — Nov 2018",
+    points: [
+      "Ran the fee-for-service flow cytometry and cell sorting cores serving many independent research groups — fully responsible for service rates and cost structure, returning a quarterly profit of $10,000–$30,000 while recovering instrument and staff cost.",
+      "Operated and maintained conventional and full spectral analyzers and cell sorters including a Cytek Aurora, and handled the troubleshooting and quality control that kept them running.",
+      "Created and led training courses in flow cytometry, advanced multicolor panel design, and instrument operation, mentoring hundreds of researchers and staff.",
+      "Supported cell sorting programs tied to cord blood regulatory T-cell work that drew approximately $800,000 in industry sponsorship.",
+      "Authored the cGMP protocol for isolating cryopreserved cord-blood regulatory T cells for autologous infusion, achieved cGMP certification, and managed IRB and IACUC protocols.",
+    ],
+  },
+];
+
+const patents = [
+  {
+    year: "2024",
+    body: "<strong>US 11,935,629</strong> — First-named inventor, assigned to BD. Methods for flow cytometry panel design based on modeling and minimizing spillover spreading.",
+  },
+  {
+    year: "2021",
+    body: "<strong>US 11,022,615</strong> — Assigned to the University of Florida Research Foundation. Regulatory T-cells, methods for their isolation and uses.",
+  },
+];
+
+const education = [
+  { year: "2016", body: "Specialization Certificate, <strong>Data Science</strong> — Johns Hopkins University / Coursera" },
+  { year: "2015", body: "M.Sc., <strong>Biomedical Informatics</strong> — Nova Southeastern University" },
+  { year: "2005", body: "B.S., <strong>Zoology</strong> — University of Florida" },
+];
+
+const certs = [
+  { year: "2021", body: "Certified Scrum Product Owner, Agile Learning Labs" },
+  { year: "2019", body: "Comprehensive Course in Flow Cytometry, University of California, Davis" },
+  { year: "2018", body: "AWS Certified Cloud Practitioner" },
+  { year: "2016", body: "Specialist in Cytometry [SCYM(ASCP)<sup>CM</sup>], International Cytometry Certification Examination" },
+  { year: "2015", body: 'Core Concepts in Biomanufacturing and Quality Systems: Application of cGMPs, Biotility' },
+  { year: "2012", body: "AAI Introductory Immunology Course, University of Pennsylvania" },
+  { year: "2011", body: "FACSAria&trade; III Operator Course, BD Biosciences" },
+  { year: "2007", body: "Laboratory Animal Technologist (LATg), AALAS" },
+];
+
+const honors = [
+  { year: "2021", body: "Wesley J. Howe Award for Science &amp; Technology — Innovation, BD" },
+  { year: "2018", body: 'Spirit of <a href="https://www.jdrfnpod.org/" target="_blank" rel="noopener noreferrer">nPOD</a> Award' },
+  { year: "2015", body: '<a href="https://fluorofinder.com/" target="_blank" rel="noopener noreferrer">FluoroFinder</a>&rsquo;s First Featured Core Manager' },
+  { year: "2014", body: "University of Florida Superior Accomplishment Award — Division Level" },
+  { year: "2004", body: "University Scholar, University of Florida&rsquo;s Undergraduate Research Program" },
+];
+
+const memberships = [
+  { year: "Current", body: 'Peer reviewer, <a href="https://www.frontiersin.org/journals/immunology" target="_blank" rel="noopener noreferrer">Frontiers in Immunology</a>' },
+  { year: "2014–", body: '<a href="https://isac-net.org/" target="_blank" rel="noopener noreferrer">International Society for the Advancement of Cytometry</a> — Member' },
+  { year: "2013–", body: '<a href="https://www.focisnet.org/" target="_blank" rel="noopener noreferrer">Federation of Clinical Immunology Societies</a> — Member' },
+  { year: "2016–18", body: "CYTO University eLearning Committee Member, ISAC" },
+  { year: "2016, 2017", body: "53rd &amp; 54th Florida Junior Science, Engineering and Humanities Symposium — Poster and Speaker Competition Judge" },
+  { year: "2015–16", body: "UF University Minority Mentor Program — Mentor" },
+];
 ---
 
-<Layout title="how|we|do" description="Curriculum vitae of Howie Seay — product leadership in life-sciences software and flow cytometry">
-  <section id="main" class="wrapper">
+<Layout title="CV — Howie Seay" description="Curriculum vitae: product leadership in flow cytometry, spectral analysis, and automated cell therapy manufacturing.">
+  <header class="page-head">
     <div class="container">
-      <header class="major special">
-        <h2>CURRICULUM VITAE</h2>
-        <p><em>When you come to a fork in the road, take it</em></p>
-      </header>
+      <p class="eyebrow">Curriculum Vitae</p>
+      <h1>Fifteen years making cells count</h1>
+      <p>
+        From running fee-for-service cytometry cores to leading product for an automated cell
+        therapy platform — the instruments, the software, and the science in between.
+      </p>
+    </div>
+  </header>
 
-      <span class="image fit"><img src="/images/banner.jpg" alt="" /></span>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Experience</p>
+      <ol class="timeline">
+        {
+          roles.map((role) => (
+            <li>
+              <h3>
+                {role.title} <span style="color: var(--cyan)">/</span> {role.org}
+              </h3>
+              <p class="role-meta">{role.meta}</p>
+              <ul>
+                {role.points.map((p) => (
+                  <li>{p}</li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
 
-      <h2>Professional Experience</h2>
-
-      <h3>Senior Product Manager &mdash; Cellares</h3>
-      <p><b>South San Francisco, California &middot; June 2022 &ndash; Present</b></p>
-      <ul>
-        <li>
-          <p>
-            Lead product across four scrum teams and 30+ engineers building the software for the
-            Cell Shuttle, a fully automated cell therapy manufacturing platform &mdash;
-            orchestration, scheduling, reagent tracking, and information management.
-          </p>
-        </li>
-        <li>
-          <p>
-            Defined how three spectral analyzers integrate with an automated quality control
-            platform running standard cell therapy flow panels, and operated them during
-            integration testing.
-          </p>
-        </li>
-        <li>
-          <p>
-            Specified the requirements for integrating a GMP closed cell sorter into the
-            manufacturing process, moving cell selection inside the closed system rather than
-            leaving it as a separate open step.
-          </p>
-        </li>
-        <li>
-          <p>
-            Delivered the traceability and record-keeping that allow the platform to be used for
-            real patient doses under FDA-regulated quality systems.
-          </p>
-        </li>
-        <li>
-          <p>
-            Demonstrate the Cell Shuttle and Cell Q instruments to customers, work the CAR-TCR
-            Summit booth, and run structured user research with the analysts who operate them.
-          </p>
-        </li>
+  <section class="section tight">
+    <div class="container">
+      <p class="eyebrow">Patents</p>
+      <ul class="entry-list">
+        {patents.map((e) => <li><span class="year">{e.year}</span><span set:html={e.body} /></li>)}
       </ul>
+    </div>
+  </section>
 
-      <h3>Senior Product Owner &mdash; Rosalind Bioinformatics</h3>
-      <p><b>San Diego, California &middot; January 2022 &ndash; June 2022</b></p>
-      <ul>
-        <li>
-          <p>
-            Led product for a genomics research platform using machine learning to turn sequencing
-            data into evidence pharmaceutical and clinical users could act on.
-          </p>
-        </li>
-        <li>
-          <p>
-            Took a diagnostic monitoring system to launch with NIH RADx Tech support, alongside a
-            FedRAMP-authorized platform used under emergency authorization to triage patients by
-            diagnosed variant.
-          </p>
-        </li>
+  <section class="section tight">
+    <div class="container">
+      <p class="eyebrow">Education</p>
+      <ul class="entry-list">
+        {education.map((e) => <li><span class="year">{e.year}</span><span set:html={e.body} /></li>)}
       </ul>
+    </div>
+  </section>
 
-      <h3>Senior Product Owner / Product Manager &mdash; BD Biosciences / FlowJo</h3>
-      <p><b>Ashland, Oregon &middot; December 2018 &ndash; January 2022</b></p>
-      <ul>
-        <li>
-          <p>
-            Invented and patented a method for multicolor panel design that models and minimizes
-            spillover spreading &mdash; granted as US 11,935,629 and assigned to BD, with family
-            members in the EU, China, and Japan.
-          </p>
-        </li>
-        <li>
-          <p>
-            Helped develop and test the spectral unmixing in FlowJo, the analysis software
-            cytometrists use to unmix full spectral data.
-          </p>
-        </li>
-        <li>
-          <p>
-            Gathered requirements for BD Research Cloud face to face with users, application
-            scientists, technical support, and marketing &mdash; working the BD booth at CYTO and
-            the American Association of Immunologists annual meeting, and visiting customer sites.
-          </p>
-        </li>
-        <li>
-          <p>
-            Built the business cases, financial analyses, and ROI models BD used to decide which
-            software to invest in, including the cloud analysis platform.
-          </p>
-        </li>
-        <li>
-          <p>
-            Researched licensing structure and pricing with the sales and strategy team, and
-            maintained the competitive assessments behind that positioning.
-          </p>
-        </li>
+  <section class="section tight">
+    <div class="container">
+      <p class="eyebrow">Certification &amp; Training</p>
+      <ul class="entry-list">
+        {certs.map((e) => <li><span class="year">{e.year}</span><span set:html={e.body} /></li>)}
       </ul>
+    </div>
+  </section>
 
-      <h3>Core Research Facility Manager / Laboratory Manager &mdash; University of Florida</h3>
-      <p><b>Gainesville, Florida &middot; February 2011 &ndash; November 2018</b></p>
-      <ul>
-        <li>
-          <p>
-            Ran the fee-for-service flow cytometry and cell sorting cores serving many independent
-            research groups &mdash; fully responsible for service rates and cost structure,
-            returning a quarterly profit of $10,000&ndash;$30,000 while recovering instrument and
-            staff cost.
-          </p>
-        </li>
-        <li>
-          <p>
-            Operated and maintained conventional and full spectral analyzers and cell sorters
-            including a Cytek Aurora, and handled the troubleshooting and quality control that kept
-            them running.
-          </p>
-        </li>
-        <li>
-          <p>
-            Created and led training courses in flow cytometry, advanced multicolor panel design,
-            and instrument operation, mentoring hundreds of researchers and staff.
-          </p>
-        </li>
-        <li>
-          <p>
-            Supported cell sorting programs tied to cord blood regulatory T-cell work that drew
-            approximately $800,000 in industry sponsorship.
-          </p>
-        </li>
-        <li>
-          <p>
-            Authored the cGMP protocol for isolating cryopreserved cord-blood regulatory T cells for
-            autologous infusion, achieved cGMP certification, and managed IRB and IACUC protocols.
-          </p>
-        </li>
+  <section class="section tight">
+    <div class="container">
+      <p class="eyebrow">Honors</p>
+      <ul class="entry-list">
+        {honors.map((e) => <li><span class="year">{e.year}</span><span set:html={e.body} /></li>)}
       </ul>
+    </div>
+  </section>
 
-      <hr />
-
-      <h2>Education</h2>
-      <ul>
-        <li>
-          <p>Johns Hopkins University/Coursera, Specialization Certificate, <b>Data Science</b>, 2016</p>
-        </li>
-        <li>
-          <p>Nova Southeastern University, M.Sc., <b>Biomedical Informatics</b>, 2015</p>
-        </li>
-        <li>
-          <p>University of Florida, B.S. <b>Zoology</b>, 2005</p>
-        </li>
+  <section class="section tight">
+    <div class="container">
+      <p class="eyebrow">Memberships &amp; Activities</p>
+      <ul class="entry-list">
+        {memberships.map((e) => <li><span class="year">{e.year}</span><span set:html={e.body} /></li>)}
       </ul>
-
-      <hr />
-
-      <h2>Patents</h2>
-      <ul>
-        <li>
-          <p>
-            <b>US 11,935,629</b> (2024) &ndash; First-named inventor, assigned to BD. Methods for
-            flow cytometry panel design based on modeling and minimizing spillover spreading.
-          </p>
-        </li>
-        <li>
-          <p>
-            <b>US 11,022,615</b> (2021) &ndash; Assigned to the University of Florida Research
-            Foundation. Regulatory T-cells, methods for their isolation and uses.
-          </p>
-        </li>
-      </ul>
-
-      <hr />
-
-      <h2>Professional Certification &amp; Training</h2>
-      <ul>
-        <li>
-          <p><b>2021</b> &ndash; Certified Scrum Product Owner, Agile Learning Labs</p>
-        </li>
-        <li>
-          <p><b>2019</b> &ndash; Comprehensive Course in Flow Cytometry, University of California, Davis</p>
-        </li>
-        <li>
-          <p><b>2018</b> &ndash; AWS Certified Cloud Practitioner</p>
-        </li>
-        <li>
-          <p>
-            <b>2016</b> &ndash; Specialist in Cytometry [SCYM(ASCP)<sup>CM</sup>], International
-            Cytometry Certification Examination (ICCE)
-          </p>
-        </li>
-        <li>
-          <p>
-            <b>2015</b> &ndash; <a
-              href="https://xms.dce.ufl.edu/reg/groups/CERHB/course.aspx?c=9265"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Core Concepts in Biomanufacturing and Quality Systems: Application of cGMPs</a
-            >, Biotility
-          </p>
-        </li>
-        <li>
-          <p>
-            <b>2012</b> &ndash; AAI Introductory Immunology Course, University of Pennsylvania,
-            Philadelphia, Pennsylvania
-          </p>
-        </li>
-        <li>
-          <p>
-            <b>2011</b> &ndash; FACSAria&trade; III Operator Course, BD Biosciences, San Jose,
-            California
-          </p>
-        </li>
-        <li>
-          <p>
-            <b>2007</b> &ndash; Laboratory Animal Technologist (LATg), American Association for
-            Laboratory Animal Science (AALAS)
-          </p>
-        </li>
-      </ul>
-
-      <hr />
-
-      <h2>Honors</h2>
-      <ul>
-        <li>
-          <p>
-            <b>2021</b> &ndash; Wesley J. Howe Award for Science &amp; Technology &mdash;
-            Innovation, BD
-          </p>
-        </li>
-        <li>
-          <p>
-            <b>2018</b> &ndash; Spirit of <a
-              href="https://www.jdrfnpod.org/"
-              target="_blank"
-              rel="noopener noreferrer">nPOD</a
-            > Award
-          </p>
-        </li>
-        <li>
-          <p>
-            <b>2015</b> &ndash; <a
-              href="https://fluorofinder.com/"
-              target="_blank"
-              rel="noopener noreferrer">FluoroFinder</a
-            >'s First Featured Core Manager
-          </p>
-        </li>
-        <li>
-          <p>
-            <b>2014</b> &ndash; <a
-              href="https://hr.ufl.edu/learn-grow/awards-recognition/superior-accomplishment-awards/"
-              target="_blank"
-              rel="noopener noreferrer">University of Florida Superior Accomplishment Award</a
-            > &ndash; Division Level
-          </p>
-        </li>
-        <li>
-          <p>
-            <b>2004</b> &ndash; University Scholar, <a
-              href="https://scholars.ufl.edu"
-              target="_blank"
-              rel="noopener noreferrer">University of Florida's Undergraduate Research Program</a
-            >
-          </p>
-        </li>
-      </ul>
-
-      <hr />
-
-      <h2>Memberships &amp; Activities</h2>
-      <ul>
-        <li>
-          <p>
-            Peer reviewer, <a
-              href="https://www.frontiersin.org/journals/immunology"
-              target="_blank"
-              rel="noopener noreferrer">Frontiers in Immunology</a
-            >
-          </p>
-        </li>
-        <li>
-          <p>
-            <b>2017</b> &ndash; 54th Florida Junior Science, Engineering and Humanities Symposium
-            Poster and Speaker Competition Judge
-          </p>
-        </li>
-        <li>
-          <p>
-            <b>2016&ndash;2018</b> &ndash; CYTO University eLearning Committee Member, <a
-              href="https://isac-net.org/"
-              target="_blank"
-              rel="noopener noreferrer">International Society for the Advancement of Cytometry</a
-            >
-          </p>
-        </li>
-        <li>
-          <p>
-            <b>2016</b> &ndash; 53rd Florida Junior Science, Engineering and Humanities Symposium
-            Poster and Speaker Competition Judge
-          </p>
-        </li>
-        <li>
-          <p>
-            <b>2015&ndash;2016</b> &ndash; UF <a
-              href="https://multicultural.ufl.edu/"
-              target="_blank"
-              rel="noopener noreferrer">University Minority Mentor Program (UMMP)</a
-            > Mentor
-          </p>
-        </li>
-        <li>
-          <p>
-            <b>2014&ndash;Current</b> &ndash; <a
-              href="https://isac-net.org/"
-              target="_blank"
-              rel="noopener noreferrer">International Society for the Advancement of Cytometry</a
-            > Member
-          </p>
-        </li>
-        <li>
-          <p>
-            <b>2013&ndash;Current</b> &ndash; <a
-              href="https://www.focisnet.org/"
-              target="_blank"
-              rel="noopener noreferrer">Federation of Clinical Immunology Societies</a
-            > Member
-          </p>
-        </li>
-      </ul>
-      <hr />
     </div>
   </section>
 </Layout>

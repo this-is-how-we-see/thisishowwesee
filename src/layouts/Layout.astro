@@ -5,13 +5,11 @@ import "../styles/main.css";
 interface Props {
   title: string;
   description?: string;
-  bodyClass?: string;
 }
 
 const {
   title,
-  description = "Flow Cytometry Resources by Howie Seay",
-  bodyClass = "",
+  description = "Howie Seay — product leadership in flow cytometry, spectral analysis, and automated cell therapy manufacturing.",
 } = Astro.props;
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
@@ -19,16 +17,18 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const links = [
   { href: "/", label: "Home" },
   { href: "/flowsites", label: "Flow Resources" },
-  { href: "/euchre", label: "Euchre Odds" },
-  { href: "/cv", label: "Curriculum Vitae" },
+  { href: "/cv", label: "CV" },
   { href: "/pubs", label: "Publications" },
+  { href: "/euchre", label: "Euchre Odds" },
 ];
 
 const social = [
-  { href: "https://www.facebook.com/thisishowwesee/", icon: "facebook", label: "Facebook" },
-  { href: "https://twitter.com/HowieSeay", icon: "twitter", label: "Twitter" },
   { href: "https://www.linkedin.com/in/this-is-how-we-see/", icon: "linkedin", label: "LinkedIn" },
+  { href: "https://twitter.com/HowieSeay", icon: "twitter", label: "Twitter" },
+  { href: "https://www.facebook.com/thisishowwesee/", icon: "facebook", label: "Facebook" },
 ] as const;
+
+const year = 2026;
 ---
 
 <!doctype html>
@@ -38,41 +38,55 @@ const social = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0a0c10" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
     />
   </head>
-  <body class:list={["is-loading", bodyClass]}>
+  <body>
     <a class="skip-link" href="#content">Skip to content</a>
 
-    <header id="header" class:list={[{ alt: bodyClass === "landing" }]}>
-      <h1><a href="/">this.is.how.we.see</a></h1>
-      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav">
-        <Icon name="bars" />
-        <span>Menu</span>
-      </button>
+    <header id="header">
+      <div class="container">
+        <a class="wordmark" href="/">this<span>.is.how.we.</span>see</a>
+
+        <nav aria-label="Main">
+          <ul class="nav-links">
+            {
+              links.map((link) => (
+                <li>
+                  <a href={link.href} aria-current={path === link.href ? "page" : undefined}>
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav-panel">
+          <Icon name="bars" />
+          <span class="visually-hidden">Menu</span>
+        </button>
+      </div>
     </header>
 
-    <nav id="nav" aria-label="Main">
+    <nav id="nav-panel" class="nav-panel" aria-label="Main">
       <button type="button" class="nav-close" aria-label="Close menu">
         <Icon name="times" />
       </button>
-      <ul class="links">
-        {
-          links.map((link) => (
-            <li class:list={[{ active: path === link.href }]}>
-              <a href={link.href} aria-current={path === link.href ? "page" : undefined}>
-                {link.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+      {
+        links.map((link) => (
+          <a href={link.href} aria-current={path === link.href ? "page" : undefined}>
+            {link.label}
+          </a>
+        ))
+      }
     </nav>
-
     <div class="nav-backdrop"></div>
 
     <main id="content">
@@ -80,12 +94,13 @@ const social = [
     </main>
 
     <footer id="footer">
-      <div class="inner">
+      <div class="container inner">
+        <p class="colophon">&copy; {year} Howie Seay &middot; Rogue Valley, Oregon</p>
         <ul class="icons">
           {
             social.map((item) => (
               <li>
-                <a href={item.href} target="_blank" rel="noopener noreferrer" class="icon">
+                <a href={item.href} target="_blank" rel="noopener noreferrer">
                   <Icon name={item.icon} />
                   <span class="label">{item.label}</span>
                 </a>
@@ -93,49 +108,34 @@ const social = [
             ))
           }
         </ul>
-        <ul class="copyright">
-          <li>&copy; SEAYCORP.</li>
-          <li>Images: <a href="https://unsplash.com">Unsplash</a>.</li>
-          <li>Design: <a href="https://templated.co">TEMPLATED</a>.</li>
-        </ul>
       </div>
     </footer>
 
     <script>
-      const nav = document.getElementById("nav");
+      const panel = document.getElementById("nav-panel");
       const toggle = document.querySelector<HTMLButtonElement>(".nav-toggle");
       const close = document.querySelector<HTMLButtonElement>(".nav-close");
       const backdrop = document.querySelector<HTMLElement>(".nav-backdrop");
 
       function setNav(open: boolean) {
-        if (!nav || !toggle || !backdrop) return;
-        nav.classList.toggle("visible", open);
+        if (!panel || !toggle || !backdrop) return;
+        panel.classList.toggle("visible", open);
         backdrop.classList.toggle("visible", open);
         toggle.setAttribute("aria-expanded", String(open));
         document.body.style.overflow = open ? "hidden" : "";
-        if (open) {
-          close?.focus();
-        } else {
-          toggle.focus();
-        }
+        // visibility flips instantly on open (see .nav-panel.visible), so the
+        // close button is focusable synchronously — no rAF needed
+        if (open) close?.focus();
+        else toggle.focus();
       }
 
-      toggle?.addEventListener("click", () => setNav(!nav?.classList.contains("visible")));
+      toggle?.addEventListener("click", () => setNav(!panel?.classList.contains("visible")));
       close?.addEventListener("click", () => setNav(false));
       backdrop?.addEventListener("click", () => setNav(false));
+      panel?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setNav(false)));
 
       document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && nav?.classList.contains("visible")) setNav(false);
-      });
-
-      // Close the panel when a link is followed.
-      nav?.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => setNav(false));
-      });
-
-      // Re-enable transitions once the page has settled.
-      window.addEventListener("load", () => {
-        window.setTimeout(() => document.body.classList.remove("is-loading"), 100);
+        if (event.key === "Escape" && panel?.classList.contains("visible")) setNav(false);
       });
     </script>
   </body>

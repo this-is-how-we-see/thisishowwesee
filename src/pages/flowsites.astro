@@ -2,16 +2,25 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="how|we|flow">
-  <section id="main" class="wrapper">
+<Layout
+  title="Flow Resources — Howie Seay"
+  description="A curated guide to flow cytometry: communities, ebooks, tutorials, panel design, spectral resources, training, and jobs."
+>
+  <header class="page-head">
     <div class="container">
-      <header class="major special">
-        <h2>Flow Resources</h2>
-        <p><em>Flow chose you. Go with the flow.</em></p>
-      </header>
+      <p class="eyebrow">Flow Resources</p>
+      <h1>Flow chose you</h1>
+      <p>
+        The communities worth joining, the books worth reading, the software worth learning, and the
+        courses worth the time &mdash; everything I wish someone had handed me on day one.
+      </p>
+    </div>
+  </header>
 
-      <section>
-        <h4>Online Communities (A to Z)</h4>
+  <div class="section tight">
+    <div class="container">
+
+      <h2 class="res-head">Online Communities (A to Z)</h2>
         <div class="table-wrapper">
           <table class="alt">
             <thead>
@@ -63,7 +72,7 @@ import Layout from "../layouts/Layout.astro";
           </table>
         </div>
 
-        <h4>Flow Cytometry eBooks</h4>
+        <h2 class="res-head">Flow Cytometry eBooks</h2>
         <div class="table-wrapper">
           <table class="alt">
             <thead>
@@ -129,7 +138,7 @@ import Layout from "../layouts/Layout.astro";
           </table>
         </div>
 
-        <h4>Cytometry Tips, Tutorials, and Protocols</h4>
+        <h2 class="res-head">Cytometry Tips, Tutorials, and Protocols</h2>
         <div class="table-wrapper">
           <table class="alt">
             <thead>
@@ -199,7 +208,7 @@ import Layout from "../layouts/Layout.astro";
           </table>
         </div>
 
-        <h4>Data</h4>
+        <h2 class="res-head">Data</h2>
         <div class="table-wrapper">
           <table class="alt">
             <thead>
@@ -239,7 +248,7 @@ import Layout from "../layouts/Layout.astro";
           </table>
         </div>
 
-        <h4>Panel Design Resources</h4>
+        <h2 class="res-head">Panel Design Resources</h2>
         <div class="table-wrapper">
           <table class="alt">
             <thead>
@@ -321,7 +330,7 @@ import Layout from "../layouts/Layout.astro";
           </table>
         </div>
 
-        <h4>Spectral Cytometry Resources</h4>
+        <h2 class="res-head">Spectral Cytometry Resources</h2>
         <div class="table-wrapper">
           <table class="alt">
             <thead>
@@ -355,7 +364,7 @@ import Layout from "../layouts/Layout.astro";
           </table>
         </div>
 
-        <h4>IRL Flow Cytometry Training</h4>
+        <h2 class="res-head">IRL Flow Cytometry Training</h2>
         <div class="table-wrapper">
           <table class="alt">
             <thead>
@@ -389,7 +398,7 @@ import Layout from "../layouts/Layout.astro";
           </table>
         </div>
 
-        <h4>Jobs</h4>
+        <h2 class="res-head">Jobs</h2>
         <div class="table-wrapper">
           <table class="alt">
             <thead>
@@ -418,7 +427,6 @@ import Layout from "../layouts/Layout.astro";
             </tbody>
           </table>
         </div>
-      </section>
     </div>
-  </section>
+  </div>
 </Layout>
