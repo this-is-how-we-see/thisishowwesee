@@ -790,6 +790,28 @@ ul.bare {
   margin-top: 2.5rem;
 }
 
+/* emission spectra diagram */
+.spectra-figure {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  margin: 2rem 0 0;
+  padding: 1.5rem;
+}
+
+.spectra-figure svg {
+  height: auto;
+  width: 100%;
+}
+
+.spectra-figure figcaption {
+  border-top: 1px solid var(--line);
+  color: var(--text-faint);
+  font-size: 0.88rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+}
+
 /* trump hierarchy: strongest card first */
 .rank-figure {
   margin: 1.75rem 0 0;

@@ -1,0 +1,299 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Compensation — Howie Seay"
+  description="What spillover is, what compensation does about it, and the part compensation cannot fix."
+>
+  <header class="page-head">
+    <div class="container">
+      <p class="eyebrow">Guide</p>
+      <h1>Compensation, without the hand-waving</h1>
+      <p>
+        Compensation is the step most people learn by copying whoever trained them, which is how bad
+        habits survive for decades. It is not a slider and it is not cosmetic. It is arithmetic with
+        a right answer, and it has one important limit that no amount of care will get around.
+      </p>
+    </div>
+  </header>
+
+  <section class="section tight">
+    <div class="container narrow">
+      <p class="eyebrow">01 / The problem</p>
+      <h2>Detectors cannot tell dyes apart</h2>
+      <p>
+        A fluorochrome does not emit one wavelength. It emits across a broad band, rising steeply on
+        the blue side of its peak and trailing a long way off to the red. A detector is a bandpass
+        filter in front of a sensor, so it collects every photon that falls inside its window and
+        has no idea which dye sent it.
+      </p>
+      <p>
+        Put FITC and PE in the same tube and the detector assigned to PE sees real PE, plus a share
+        of the FITC whose tail reaches into the same window. That share is called spillover.
+      </p>
+
+      <figure class="spectra-figure">
+        <svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="Emission spectra of FITC and PE, showing the FITC tail reaching into the PE detector window">
+          <rect x="275.2" y="30" width="75.6" height="170" fill="rgba(34,211,238,.10)" />
+          <line x1="275.2" y1="30" x2="275.2" y2="200" stroke="rgba(34,211,238,.5)" stroke-dasharray="3 3" />
+          <line x1="350.8" y1="30" x2="350.8" y2="200" stroke="rgba(34,211,238,.5)" stroke-dasharray="3 3" />
+          <line x1="70" y1="200" x2="610" y2="200" stroke="rgba(242,245,247,.25)" />
+          <polyline points="70.0,200.0 73.6,200.0 77.2,200.0 80.8,200.0 84.4,199.9 88.0,199.9 91.6,199.8 95.2,199.7 98.8,199.5 102.4,199.3 106.0,198.9 109.6,198.4 113.2,197.7 116.8,196.7 120.4,195.3 124.0,193.5 127.6,191.1 131.2,188.1 134.8,184.2 138.4,179.4 142.0,173.6 145.6,166.7 149.2,158.8 152.8,149.7 156.4,139.7 160.0,128.9 163.6,117.4 167.2,105.8 170.8,94.2 174.4,83.2 178.0,73.1 181.6,64.4 185.2,57.6 188.8,52.8 192.4,50.3 196.0,50.0 199.6,50.4 203.2,51.1 206.8,52.2 210.4,53.6 214.0,55.3 217.6,57.3 221.2,59.7 224.8,62.3 228.4,65.3 232.0,68.4 235.6,71.8 239.2,75.4 242.8,79.2 246.4,83.2 250.0,87.3 253.6,91.5 257.2,95.8 260.8,100.1 264.4,104.6 268.0,109.0 271.6,113.4 275.2,117.8 278.8,122.2 282.4,126.5 286.0,130.8 289.6,134.9 293.2,139.0 296.8,142.9 300.4,146.7 304.0,150.4 307.6,153.9 311.2,157.3 314.8,160.5 318.4,163.6 322.0,166.5 325.6,169.2 329.2,171.8 332.8,174.3 336.4,176.5 340.0,178.7 343.6,180.6 347.2,182.5 350.8,184.2 354.4,185.8 358.0,187.2 361.6,188.5 365.2,189.7 368.8,190.9 372.4,191.9 376.0,192.8 379.6,193.6 383.2,194.3 386.8,195.0 390.4,195.6 394.0,196.2 397.6,196.6 401.2,197.1 404.8,197.4 408.4,197.8 412.0,198.1 415.6,198.3 419.2,198.6 422.8,198.8 426.4,198.9 430.0,199.1 433.6,199.2 437.2,199.3 440.8,199.4 444.4,199.5 448.0,199.6 451.6,199.7 455.2,199.7 458.8,199.8 462.4,199.8 466.0,199.8 469.6,199.9 473.2,199.9 476.8,199.9 480.4,199.9 484.0,199.9 487.6,199.9 491.2,200.0 494.8,200.0 498.4,200.0 502.0,200.0 505.6,200.0 509.2,200.0 512.8,200.0 516.4,200.0 520.0,200.0 523.6,200.0 527.2,200.0 530.8,200.0 534.4,200.0 538.0,200.0 541.6,200.0 545.2,200.0 548.8,200.0 552.4,200.0 556.0,200.0 559.6,200.0 563.2,200.0 566.8,200.0 570.4,200.0 574.0,200.0 577.6,200.0 581.2,200.0 584.8,200.0 588.4,200.0 592.0,200.0 595.6,200.0 599.2,200.0 602.8,200.0 606.4,200.0 610.0,200.0" fill="none" stroke="#4ade80" stroke-width="2" />
+          <polyline points="70.0,200.0 73.6,200.0 77.2,200.0 80.8,200.0 84.4,200.0 88.0,200.0 91.6,200.0 95.2,200.0 98.8,200.0 102.4,200.0 106.0,200.0 109.6,200.0 113.2,200.0 116.8,200.0 120.4,200.0 124.0,200.0 127.6,200.0 131.2,200.0 134.8,200.0 138.4,200.0 142.0,200.0 145.6,200.0 149.2,200.0 152.8,200.0 156.4,200.0 160.0,200.0 163.6,200.0 167.2,200.0 170.8,200.0 174.4,200.0 178.0,200.0 181.6,200.0 185.2,200.0 188.8,200.0 192.4,200.0 196.0,200.0 199.6,200.0 203.2,200.0 206.8,200.0 210.4,199.9 214.0,199.9 217.6,199.8 221.2,199.6 224.8,199.4 228.4,198.9 232.0,198.3 235.6,197.3 239.2,195.8 242.8,193.6 246.4,190.7 250.0,186.7 253.6,181.4 257.2,174.6 260.8,166.3 264.4,156.4 268.0,144.8 271.6,131.9 275.2,118.1 278.8,103.8 282.4,89.8 286.0,76.9 289.6,65.8 293.2,57.2 296.8,51.8 300.4,50.0 304.0,50.2 307.6,51.0 311.2,52.1 314.8,53.8 318.4,55.9 322.0,58.4 325.6,61.3 329.2,64.6 332.8,68.2 336.4,72.2 340.0,76.4 343.6,80.9 347.2,85.5 350.8,90.4 354.4,95.3 358.0,100.4 361.6,105.5 365.2,110.7 368.8,115.8 372.4,120.9 376.0,125.9 379.6,130.9 383.2,135.7 386.8,140.3 390.4,144.8 394.0,149.1 397.6,153.3 401.2,157.2 404.8,160.9 408.4,164.5 412.0,167.8 415.6,170.9 419.2,173.7 422.8,176.4 426.4,178.9 430.0,181.1 433.6,183.2 437.2,185.1 440.8,186.8 444.4,188.4 448.0,189.8 451.6,191.1 455.2,192.2 458.8,193.2 462.4,194.1 466.0,194.9 469.6,195.6 473.2,196.2 476.8,196.8 480.4,197.3 484.0,197.7 487.6,198.0 491.2,198.3 494.8,198.6 498.4,198.8 502.0,199.0 505.6,199.2 509.2,199.3 512.8,199.4 516.4,199.5 520.0,199.6 523.6,199.7 527.2,199.7 530.8,199.8 534.4,199.8 538.0,199.9 541.6,199.9 545.2,199.9 548.8,199.9 552.4,199.9 556.0,200.0 559.6,200.0 563.2,200.0 566.8,200.0 570.4,200.0 574.0,200.0 577.6,200.0 581.2,200.0 584.8,200.0 588.4,200.0 592.0,200.0 595.6,200.0 599.2,200.0 602.8,200.0 606.4,200.0 610.0,200.0" fill="none" stroke="#f59e0b" stroke-width="2" />
+          <g font-family="IBM Plex Mono, monospace" font-size="10" fill="#6b7889">
+            <text x="70" y="218">450</text><text x="250" y="218">550</text>
+            <text x="430" y="218">650</text><text x="596" y="218">750</text>
+            <text x="313" y="24" text-anchor="middle" fill="#22d3ee">PE DETECTOR</text>
+            <text x="320" y="242" text-anchor="middle">EMISSION WAVELENGTH (nm)</text>
+          </g>
+          <g font-family="IBM Plex Mono, monospace" font-size="11">
+            <text x="150" y="46" fill="#4ade80">FITC</text>
+            <text x="300" y="66" fill="#f59e0b">PE</text>
+          </g>
+        </svg>
+        <figcaption>
+          The FITC curve has not returned to zero by the time it reaches the PE window, so some of
+          what the PE detector reports is FITC. Spillover is a fixed property of the dyes and the
+          optics. It is not noise, and it does not average out.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container narrow">
+      <p class="eyebrow">02 / The fix</p>
+      <h2>What compensation actually does</h2>
+      <p>
+        Because spillover is a fixed fraction, it can be measured and removed. Stain a sample with
+        one dye only, look at what lands in every other detector, and you have the fraction that dye
+        contributes to each. Do that for every dye in the panel and the fractions form a matrix.
+        Inverting it recovers an estimate of how much of each dye was really on the cell.
+      </p>
+      <p>
+        <strong>
+          Compensation is a calculation with a correct answer, not a setting to be adjusted until the
+          plot looks reasonable.
+        </strong>
+        Two people with the same controls should arrive at the same numbers. If they do not, one of
+        them is adjusting rather than measuring.
+      </p>
+      <p>
+        The arithmetic runs on linear values, before anything reaches a log axis. That ordering
+        matters for the reason in section 04.
+      </p>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container narrow">
+      <p class="eyebrow">03 / Controls</p>
+      <h2>The rules that make the number right</h2>
+      <p>
+        Compensation is only as good as the single-stained controls behind it. These rules are not
+        style preferences. Break one and the matrix is wrong in a way the software cannot detect.
+      </p>
+      <ol class="steps">
+        <li>
+          <h3>One control per fluorochrome, and it must be that exact fluorochrome</h3>
+          <p>
+            Tandem dyes are the trap. Two vials of the same catalog tandem from different lots can
+            have different emission, because the acceptor degrades. Compensate with the vial you
+            stained with.
+          </p>
+        </li>
+        <li>
+          <h3>The control has to be at least as bright as the sample</h3>
+          <p>
+            The fraction is estimated from the positive population. A dim control estimates it from
+            a short lever, and the error scales up across the whole range of your data.
+          </p>
+        </li>
+        <li>
+          <h3>Positive and negative in the same control must share autofluorescence</h3>
+          <p>
+            The negative defines the baseline the positive is measured against. A bead positive
+            against a cell negative compares two different baselines, so the subtraction inherits
+            the difference. Keep each control internally consistent.
+          </p>
+        </li>
+        <li>
+          <h3>Collect enough events in both populations</h3>
+          <p>
+            The matrix is built from medians. A few hundred events in a sparse control is a noisy
+            median, and every downstream sample carries that noise.
+          </p>
+        </li>
+        <li>
+          <h3>Recalculate when the instrument changes</h3>
+          <p>
+            New detector settings, new optical configuration, or a service visit means the old
+            matrix describes an instrument that no longer exists.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container narrow">
+      <p class="eyebrow">04 / The limit</p>
+      <h2>What compensation cannot fix</h2>
+      <p>
+        Correct compensation puts the median of a negative population back where it belongs. It does
+        not put back the precision that was lost getting there, and this is the part that surprises
+        people.
+      </p>
+      <p>
+        Detecting light is a counting process, so every measurement carries error that grows with
+        the size of the signal. When compensation subtracts a large spillover from a large signal,
+        the error of both survives into the answer. The population lands in the right place and
+        arrives wider than it started.
+      </p>
+      <p>
+        <strong>Compensation corrects position, not resolution.</strong>
+        A detector receiving heavy spillover ends up with a negative population that is correctly
+        centered and badly spread, and a dim marker measured in that detector can be impossible to
+        separate from it. Nothing was done wrong. The information was gone before the arithmetic
+        started.
+      </p>
+      <p>
+        This is spillover spreading, and it can be measured for every detector pair on an instrument
+        and written down as a matrix. That matrix is the honest input to panel design. It tells you
+        which channels can carry a dim marker and which cannot, before you spend money on antibodies
+        and find out the hard way. Putting the brightest dyes on the dimmest markers is only half the
+        job. The other half is keeping your dim markers out of channels that other dyes spread into.
+      </p>
+      <p>
+        Modeling that spread and choosing panels to minimize it is the subject of
+        <a href="https://patents.google.com/patent/US11935629B2/en" target="_blank" rel="noopener noreferrer">US 11,935,629</a>,
+        which I invented while at BD.
+      </p>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container narrow">
+      <p class="eyebrow">05 / Spectral</p>
+      <h2>What changes on a full spectral instrument</h2>
+      <p>
+        A conventional instrument gives each dye one detector and corrects the overlap between them.
+        A full spectral instrument measures the whole emission signature across every detector and
+        solves for how much of each dye is present using all of it at once. The vocabulary changes
+        from compensation to unmixing.
+      </p>
+      <p>
+        The underlying algebra is the same, with more equations. What it buys you is the ability to
+        separate dyes that look nearly identical in any single channel, and the option to treat
+        autofluorescence as its own signature and pull it out rather than living with it.
+      </p>
+      <p>
+        What does not change is section 04. Unmixing is still subtraction, subtraction still carries
+        error, and spread still decides whether you can see a dim population. More detectors do not
+        exempt a panel from being designed.
+      </p>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container">
+      <p class="eyebrow">06 / Mistakes</p>
+      <h2>Six ways this goes wrong</h2>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <p class="feature-kicker">By eye</p>
+          <h3>Dragging until it looks right</h3>
+          <p>
+            Visual compensation optimizes for a plot, not for a measurement, and it reliably
+            overcompensates. Calculate it from controls.
+          </p>
+        </article>
+        <article class="feature-card">
+          <p class="feature-kicker">Brightness</p>
+          <h3>Controls dimmer than the sample</h3>
+          <p>
+            The fraction gets estimated over a short range and then applied across a long one. Small
+            errors at the bottom become large ones at the top.
+          </p>
+        </article>
+        <article class="feature-card">
+          <p class="feature-kicker">Carriers</p>
+          <h3>Beads positive against a cell negative</h3>
+          <p>
+            Two different baselines inside one control. Whatever separates them gets folded into the
+            spillover value.
+          </p>
+        </article>
+        <article class="feature-card">
+          <p class="feature-kicker">Tandems</p>
+          <h3>A different lot than the one you stained with</h3>
+          <p>
+            Tandem conjugates degrade, and degradation changes emission. The control has to come
+            from the same vial as the panel.
+          </p>
+        </article>
+        <article class="feature-card">
+          <p class="feature-kicker">Display</p>
+          <h3>Treating negative values as errors</h3>
+          <p>
+            Properly compensated data contains negatives. They are measurement error scattered
+            around zero, which is what unbiased subtraction produces. A log axis cannot show them,
+            so use a scale that can.
+          </p>
+        </article>
+        <article class="feature-card">
+          <p class="feature-kicker">Expectations</p>
+          <h3>Expecting it to restore resolution</h3>
+          <p>
+            If a population is buried in spread, better compensation will not recover it. That is a
+            panel design problem, and it has to be fixed before the sample is stained.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container narrow">
+      <p class="eyebrow">Further reading</p>
+      <h2>Credit where it is due</h2>
+      <p>
+        The clearest free explanation of compensation on the internet belongs to Mario Roederer, and
+        has for about as long as there has been an internet to put it on. Anyone serious about this
+        should read his pages rather than settle for mine, which are a summary of what the field
+        learned largely from him.
+      </p>
+      <ul class="entry-list">
+        <li>
+          <span class="year">Pages</span>
+          <span>
+            <a href="https://drmr.com/compensation/index.html" target="_blank" rel="noopener noreferrer">Mario Roederer on compensation</a>.
+            Preserved at the
+            <a href="https://web.archive.org/web/2026/https://www.drmr.com/compensation/index.html" target="_blank" rel="noopener noreferrer">Internet Archive</a>
+            back to 1999 if the original is ever unreachable.
+          </span>
+        </li>
+        <li>
+          <span class="year">2001</span>
+          <span>
+            Roederer M.
+            <a href="https://pubmed.ncbi.nlm.nih.gov/11746088/" target="_blank" rel="noopener noreferrer">Spectral compensation for flow cytometry: visualization artifacts, limitations, and caveats</a>.
+            <em>Cytometry</em> 45(3):194&ndash;205. Where the negative values and the case for FMO
+            controls are laid out properly.
+          </span>
+        </li>
+        <li>
+          <span class="year">2013</span>
+          <span>
+            Nguyen R, Perfetto S, Mahnke YD, Chattopadhyay P, Roederer M.
+            <a href="https://onlinelibrary.wiley.com/doi/10.1002/cyto.a.22251" target="_blank" rel="noopener noreferrer">Quantifying spillover spreading for comparing instrument performance and aiding in multicolor panel design</a>.
+            <em>Cytometry Part A</em> 83A(3):306&ndash;315. The paper that turned spreading into a
+            number you can design against.
+          </span>
+        </li>
+      </ul>
+    </div>
+  </section>
+</Layout>
