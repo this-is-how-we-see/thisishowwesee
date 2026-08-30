@@ -8,7 +8,7 @@ import Layout from "../layouts/Layout.astro";
       <p class="eyebrow">Projects</p>
       <h1>Euchre Call Odds</h1>
       <p>
-        Generate a hand, compare the call lines, and get a clear expert-style recommendation &mdash;
+        Generate a hand, compare the call lines, and get a clear expert-style recommendation,
         backed by Monte Carlo simulation over your seat, the upcard, and the score.
       </p>
     </div>
@@ -157,6 +157,79 @@ import Layout from "../layouts/Layout.astro";
           </dl>
         </section>
       </div>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container narrow">
+      <p class="eyebrow">The game</p>
+      <h2>How euchre works</h2>
+      <p>
+        Euchre is a trick-taking game for four players in two partnerships. It uses a short deck of
+        24 cards, nine through ace in each suit, and everyone is dealt five. One card is turned face
+        up to propose a trump suit.
+      </p>
+      <p>
+        In the first round any player can order the dealer to pick that card up, which makes its
+        suit trump. If everyone passes, a second round lets a player name a different suit instead.
+        In the stick-the-dealer variant this tool models, the dealer has to name something rather
+        than pass the hand out.
+      </p>
+      <p>
+        Whichever team names trump has to take three of the five tricks. Taking all five scores
+        more. Failing to take three means the other team euchred them, and the defenders take the
+        points instead. A player can also go alone, setting their partner's hand aside for a bigger
+        reward and a bigger risk.
+      </p>
+      <p>
+        The trump suit is not the six cards you would expect. The jack of trump becomes the highest
+        card in the game, called the right bower, and the other jack of the same color leaves its
+        own suit and joins trump as the second-highest card, the left bower. Trump ends up with
+        seven cards and the suit that lost its jack is down to five.
+      </p>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container narrow">
+      <p class="eyebrow">Why it is hard</p>
+      <h2>Why the odds resist a clean answer</h2>
+      <p>
+        Euchre looks small enough to solve on paper. Five cards, four players, 24 cards in the deck.
+        It is not, and the reasons stack up.
+      </p>
+      <p>
+        The bowers change the deck depending on what trump is. Card ranking is not fixed, so the
+        same five cards are a different hand in every suit, and any calculation has to be redone
+        from scratch for each one.
+      </p>
+      <p>
+        The deck is small, which cuts both ways. Four cards are dealt to nobody and never enter
+        play, so a fifth of the deck stays unknown all hand. With so few cards, one unseen card
+        moves the result far more than it would in a 52-card game.
+      </p>
+      <p>
+        Position matters more than it looks. Your seat relative to the dealer decides who leads, who
+        gets the upcard, and how much information you have when the decision reaches you. The same
+        hand is a call in one seat and a pass in another.
+      </p>
+      <p>
+        Your partner's hand is hidden but not independent. Every card you hold is a card they cannot
+        have, so the two hands are correlated, and treating them as separate draws gives the wrong
+        answer.
+      </p>
+      <p>
+        Scoring is asymmetric, which is the part most tables get wrong. Making three tricks is worth
+        one point, all five is worth two, a successful loner is worth four, and getting euchred
+        hands the defenders two. The question is never simply whether you will win the hand. It is
+        whether the points you expect to gain beat the points you expect to lose, and at some
+        scores a thin call is correct precisely because the alternative is worse.
+      </p>
+      <p>
+        A closed-form answer would have to carry all of that at once. Simulation is easier and
+        honest about its own error, so the tool deals thousands of hands from the cards you have not
+        seen, plays each one out, and reports what happened.
+      </p>
     </div>
   </section>
 <style is:global>
