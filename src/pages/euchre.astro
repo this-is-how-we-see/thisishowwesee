@@ -8,14 +8,170 @@ import Layout from "../layouts/Layout.astro";
       <p class="eyebrow">Projects</p>
       <h1>Euchre Call Odds</h1>
       <p>
-        Generate a hand, compare the call lines, and get a clear expert-style recommendation,
-        backed by Monte Carlo simulation over your seat, the upcard, and the score.
+        Euchre tables argue about the same thing every night: was that a call or a pass? The
+        received wisdom is folklore, handed down and rarely tested. This tool tests it, by dealing
+        out the hand thousands of times and playing it to the end.
       </p>
+      <div class="hero-actions">
+        <a href="#game" class="button">Learn the game</a>
+        <a href="#tool" class="button special">Skip to the tool</a>
+      </div>
     </div>
   </header>
 
+  <section class="section tight" id="game">
+    <div class="container narrow">
+      <p class="eyebrow">01 / The game</p>
+      <h2>How euchre works</h2>
+      <p>
+        Four players, two partnerships, and a short deck of 24 cards running nine through ace in
+        each suit. If you already play, skip ahead. If you do not, this is everything the tool
+        assumes you know.
+      </p>
+
+      <ol class="steps">
+        <li>
+          <h3>Deal five cards each</h3>
+          <p>
+            Twenty of the 24 cards go out. One of the remaining four is turned face up to propose a
+            trump suit, and the last three are never seen by anyone.
+          </p>
+        </li>
+        <li>
+          <h3>Round one: order it up, or pass</h3>
+          <p>
+            Any player can order the dealer to pick up the upcard, which makes its suit trump. The
+            dealer discards one card in exchange.
+          </p>
+        </li>
+        <li>
+          <h3>Round two: name a different suit</h3>
+          <p>
+            If everyone passes, players get a second chance to name any suit except the one that was
+            turned down. This tool models the stick-the-dealer variant, where the dealer has to name
+            something rather than throw the hand in.
+          </p>
+        </li>
+        <li>
+          <h3>Take three of five tricks</h3>
+          <p>
+            The team that named trump has to win at least three. Three or four is worth one point,
+            all five is worth two. Fall short and the other team euchred you, and they take two
+            points instead.
+          </p>
+        </li>
+        <li>
+          <h3>Or go alone</h3>
+          <p>
+            A caller can set their partner's hand aside and play the hand three against one. Taking
+            all five that way is worth four points, which is most of a game in one hand.
+          </p>
+        </li>
+      </ol>
+
+      <h3 class="sub-head">The part that trips people up</h3>
+      <p>
+        Trump is not the six cards you would expect. The jack of trump becomes the highest card in
+        the game, called the right bower. The other jack of the same color leaves its own suit
+        entirely and joins trump as the second-highest card, the left bower.
+      </p>
+
+      <figure class="rank-figure">
+        <ol class="rank-strip">
+          <li class="rank-card is-bower"><span class="rc-face">J</span><span class="rc-suit">&clubs;</span><span class="rc-note">right bower</span></li>
+          <li class="rank-card is-bower"><span class="rc-face">J</span><span class="rc-suit">&spades;</span><span class="rc-note">left bower</span></li>
+          <li class="rank-card"><span class="rc-face">A</span><span class="rc-suit">&clubs;</span></li>
+          <li class="rank-card"><span class="rc-face">K</span><span class="rc-suit">&clubs;</span></li>
+          <li class="rank-card"><span class="rc-face">Q</span><span class="rc-suit">&clubs;</span></li>
+          <li class="rank-card"><span class="rc-face">10</span><span class="rc-suit">&clubs;</span></li>
+          <li class="rank-card"><span class="rc-face">9</span><span class="rc-suit">&clubs;</span></li>
+        </ol>
+        <figcaption>
+          Clubs as trump, strongest first. The jack of spades is now a club, so trump holds seven
+          cards and spades are down to five.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
   <section class="section tight">
+    <div class="container">
+      <p class="eyebrow">02 / Why it is hard</p>
+      <h2>Why the odds resist a clean answer</h2>
+      <p style="color: var(--text-dim); margin-bottom: 2.5rem;">
+        Five cards and a 24-card deck looks small enough to solve on paper. It is not, and the
+        reasons stack up.
+      </p>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <p class="feature-kicker">The bowers</p>
+          <h3>The deck changes shape</h3>
+          <p>
+            Ranking depends on which suit is trump, so the same five cards are a different hand in
+            every suit. Each one has to be worked out from scratch.
+          </p>
+        </article>
+        <article class="feature-card">
+          <p class="feature-kicker">Hidden cards</p>
+          <h3>Three cards never appear</h3>
+          <p>
+            Twenty cards are dealt and one is turned up, so three stay face down all hand. In a
+            deck this short, a single unseen card moves the result far more than it would with 52.
+          </p>
+        </article>
+        <article class="feature-card">
+          <p class="feature-kicker">Position</p>
+          <h3>Your seat changes the answer</h3>
+          <p>
+            Where you sit relative to the dealer decides who leads, who gets the upcard, and how
+            much you know when the decision reaches you. One hand is a call in one seat and a pass
+            in another.
+          </p>
+        </article>
+        <article class="feature-card">
+          <p class="feature-kicker">Partnership</p>
+          <h3>Your partner's hand is not independent</h3>
+          <p>
+            Every card you hold is a card they cannot have. The two hands are correlated, so
+            treating them as separate draws gives the wrong number.
+          </p>
+        </article>
+        <article class="feature-card">
+          <p class="feature-kicker">Scoring</p>
+          <h3>The payoffs are lopsided</h3>
+          <p>
+            One point for three tricks, two for all five, four for a loner who takes all five, and
+            two to the defenders if they euchre you. The question is never just whether you will win
+            the hand.
+          </p>
+        </article>
+        <article class="feature-card">
+          <p class="feature-kicker">Stick the dealer</p>
+          <h3>Sometimes passing is not allowed</h3>
+          <p>
+            When the dealer has to name a suit in round two, the whole second round changes, and so
+            does what everyone before them should do.
+          </p>
+        </article>
+      </div>
+
+      <p style="margin-top: 2.5rem;">
+        A closed-form answer would have to carry all of that at once. Simulation is easier and
+        honest about its own error, so the tool deals thousands of hands from the cards you have not
+        seen, plays each one out, and reports what happened.
+      </p>
+    </div>
+  </section>
+
+  <section class="section tight" id="tool">
     <div class="container euchre-tool">
+      <p class="eyebrow">03 / The tool</p>
+      <h2>Run a hand</h2>
+      <p style="color: var(--text-dim); margin-bottom: 2.5rem;">
+        Enter a hand and an upcard, or deal a random one. Every number below the table has a note
+        under it saying what it measures.
+      </p>
 
       <div class="euchre-grid">
         <section class="panel">
@@ -160,78 +316,6 @@ import Layout from "../layouts/Layout.astro";
     </div>
   </section>
 
-  <section class="section tight">
-    <div class="container narrow">
-      <p class="eyebrow">The game</p>
-      <h2>How euchre works</h2>
-      <p>
-        Euchre is a trick-taking game for four players in two partnerships. It uses a short deck of
-        24 cards, nine through ace in each suit, and everyone is dealt five. One card is turned face
-        up to propose a trump suit.
-      </p>
-      <p>
-        In the first round any player can order the dealer to pick that card up, which makes its
-        suit trump. If everyone passes, a second round lets a player name a different suit instead.
-        In the stick-the-dealer variant this tool models, the dealer has to name something rather
-        than pass the hand out.
-      </p>
-      <p>
-        Whichever team names trump has to take three of the five tricks. Taking all five scores
-        more. Failing to take three means the other team euchred them, and the defenders take the
-        points instead. A player can also go alone, setting their partner's hand aside for a bigger
-        reward and a bigger risk.
-      </p>
-      <p>
-        The trump suit is not the six cards you would expect. The jack of trump becomes the highest
-        card in the game, called the right bower, and the other jack of the same color leaves its
-        own suit and joins trump as the second-highest card, the left bower. Trump ends up with
-        seven cards and the suit that lost its jack is down to five.
-      </p>
-    </div>
-  </section>
-
-  <section class="section tight">
-    <div class="container narrow">
-      <p class="eyebrow">Why it is hard</p>
-      <h2>Why the odds resist a clean answer</h2>
-      <p>
-        Euchre looks small enough to solve on paper. Five cards, four players, 24 cards in the deck.
-        It is not, and the reasons stack up.
-      </p>
-      <p>
-        The bowers change the deck depending on what trump is. Card ranking is not fixed, so the
-        same five cards are a different hand in every suit, and any calculation has to be redone
-        from scratch for each one.
-      </p>
-      <p>
-        The deck is small, which cuts both ways. Four cards are dealt to nobody and never enter
-        play, so a fifth of the deck stays unknown all hand. With so few cards, one unseen card
-        moves the result far more than it would in a 52-card game.
-      </p>
-      <p>
-        Position matters more than it looks. Your seat relative to the dealer decides who leads, who
-        gets the upcard, and how much information you have when the decision reaches you. The same
-        hand is a call in one seat and a pass in another.
-      </p>
-      <p>
-        Your partner's hand is hidden but not independent. Every card you hold is a card they cannot
-        have, so the two hands are correlated, and treating them as separate draws gives the wrong
-        answer.
-      </p>
-      <p>
-        Scoring is asymmetric, which is the part most tables get wrong. Making three tricks is worth
-        one point, all five is worth two, a successful loner is worth four, and getting euchred
-        hands the defenders two. The question is never simply whether you will win the hand. It is
-        whether the points you expect to gain beat the points you expect to lose, and at some
-        scores a thin call is correct precisely because the alternative is worse.
-      </p>
-      <p>
-        A closed-form answer would have to carry all of that at once. Simulation is easier and
-        honest about its own error, so the tool deals thousands of hands from the cards you have not
-        seen, plays each one out, and reports what happened.
-      </p>
-    </div>
-  </section>
 <style is:global>
   .euchre-tool {
     max-width: 1180px;

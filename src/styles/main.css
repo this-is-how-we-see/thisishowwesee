@@ -748,6 +748,124 @@ ul.bare {
   font-weight: 600;
 }
 
+/* numbered rules primer */
+.steps {
+  counter-reset: step;
+  display: grid;
+  gap: 1.75rem;
+  list-style: none;
+  margin: 2rem 0 2.5rem;
+  padding: 0;
+}
+
+.steps > li {
+  border-left: 1px solid var(--line);
+  counter-increment: step;
+  margin: 0;
+  max-width: none;
+  padding-left: 2.75rem;
+  position: relative;
+}
+
+.steps > li::before {
+  color: var(--cyan);
+  content: counter(step, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  left: 1rem;
+  position: absolute;
+  top: 0.2rem;
+}
+
+.steps h3 {
+  margin: 0 0 0.35rem 0;
+}
+
+.steps p {
+  color: var(--text-dim);
+  margin: 0;
+}
+
+.sub-head {
+  margin-top: 2.5rem;
+}
+
+/* trump hierarchy: strongest card first */
+.rank-figure {
+  margin: 1.75rem 0 0;
+}
+
+.rank-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rank-card {
+  align-items: center;
+  background: #f4f6f8;
+  border: 1px solid rgba(10, 12, 16, 0.25);
+  border-radius: 5px;
+  color: #101828;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  max-width: none;
+  min-height: 4.5rem;
+  padding: 0.6rem 0.5rem;
+  position: relative;
+  width: 3.6rem;
+}
+
+.rank-card.is-bower {
+  box-shadow: 0 0 0 2px var(--violet);
+}
+
+.rc-face {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.rc-suit {
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.rc-note {
+  color: var(--violet);
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  margin-top: 0.3rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.rank-figure figcaption {
+  color: var(--text-faint);
+  font-size: 0.88rem;
+  margin-top: 1rem;
+  max-width: var(--measure);
+}
+
+@media (max-width: 560px) {
+  .rank-card {
+    min-height: 3.9rem;
+    width: 3rem;
+  }
+
+  .rc-note {
+    font-size: 0.5rem;
+  }
+}
+
 /* ---------- Tables ---------- */
 
 .table-wrapper {
