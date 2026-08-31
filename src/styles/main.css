@@ -1049,6 +1049,11 @@ table tbody tr:last-child td {
   margin-bottom: 0.75rem;
 }
 
+.page-head h1 .h1-beat {
+  color: var(--text-dim);
+  display: block;
+}
+
 .page-head p {
   color: var(--text-dim);
   font-size: clamp(1rem, 2vw, 1.15rem);
