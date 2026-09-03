@@ -1,0 +1,3 @@
+# Plaintext sources for passcode-gated pages never leave this machine.
+# Only the encrypted payloads in public/plan/ are deployed.
+private/
