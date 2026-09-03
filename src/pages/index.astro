@@ -3,36 +3,36 @@ import Layout from "../layouts/Layout.astro";
 
 const services = [
   {
-    kicker: "Flow cytometry & spectral",
-    title: "Panels that work the first time",
-    body: "Multicolor and full spectral panel design, unmixing and controls strategy, instrument QC, and the troubleshooting that gets a stalled experiment moving again. Fifteen years on conventional and spectral platforms, and a granted patent on modeling and minimizing spillover spreading.",
-    points: [
-      "Panel design and spillover-spread review",
-      "Spectral setup, unmixing, and control strategy",
-      "Core facility operations, rates, and QC programs",
-      "Training for teams new to spectral",
-    ],
-  },
-  {
-    kicker: "Product strategy",
-    title: "Requirements from the bench, not the boardroom",
-    body: "Fractional product leadership for instrument and software companies selling into life science. Requirements gathered face to face with the scientists who use the thing, then the business cases, pricing, and roadmaps that survive contact with reality.",
+    kicker: "Discovery & strategy",
+    title: "Requirements that hold up",
+    body: "The work before the roadmap: finding out what users actually need, sizing the opportunity, and turning it into requirements engineering can build without a dozen rounds of clarification. Gathered face to face with the people who use the thing, not assembled from a conference room.",
     points: [
       "Voice-of-customer and user research programs",
-      "Business cases, ROI models, and pricing structure",
-      "Roadmap and release planning across scrum teams",
+      "Requirements that survive contact with engineering",
       "Competitive and market assessment",
+      "Opportunity sizing and go/no-go calls",
     ],
   },
   {
-    kicker: "Cell therapy automation",
-    title: "Closing the loop on manufacturing",
-    body: "Advisory on automated cell therapy manufacturing: how analytics and sorting integrate into a closed process, and what traceability a platform needs before it can make real patient doses under FDA-regulated quality systems.",
+    kicker: "Product leadership",
+    title: "Fractional and interim product",
+    body: "Standing in as the product leader when you need one and do not have one, or backing up the one you have. Roadmaps, pricing, and the business cases that decide where the money goes — then the day-to-day of running them past engineering, sales, and the executives who approve them.",
     points: [
-      "In-process and release analytics integration",
-      "Closed-system cell selection and sorting",
+      "Fractional and interim product leadership",
+      "Roadmap and release planning across teams",
+      "Business cases, ROI models, and pricing structure",
+      "Launch planning and go-to-market support",
+    ],
+  },
+  {
+    kicker: "Where I go deep",
+    title: "Technical and regulated products",
+    body: "Product development gets harder when the thing is scientific, the buyer is a specialist, and a regulator has opinions. That is the ground I know best: laboratory instruments, analysis software, and automated manufacturing that has to hold up under FDA-regulated quality systems.",
+    points: [
+      "Scientific instruments and analysis software",
+      "Flow cytometry, spectral analysis, and panel design",
+      "Cell therapy manufacturing and GMP automation",
       "Traceability, records, and quality-system readiness",
-      "Technical due diligence for investors and partners",
     ],
   },
 ];
@@ -48,7 +48,7 @@ const engagements = [
   },
   {
     title: "Do the work",
-    body: "On your instruments, in your data, or alongside your product team. You get artifacts you can use without me: panel files, protocols, requirement docs, business cases.",
+    body: "Alongside your product team, your engineers, or your bench scientists. You get artifacts you can use without me: requirement docs, business cases, roadmaps, protocols.",
   },
 ];
 
@@ -57,7 +57,7 @@ const schema = [
     "@type": "WebPage",
     "@id": "https://thisishowwesee.com/#webpage",
     url: "https://thisishowwesee.com/",
-    name: "How We See LLC — flow cytometry and cell therapy consulting",
+    name: "How We See LLC — product development consulting",
     about: { "@id": "https://thisishowwesee.com/#business" },
   },
   {
@@ -67,7 +67,7 @@ const schema = [
       "@type": "Offer",
       itemOffered: {
         "@type": "Service",
-        name: service.kicker,
+        name: service.title,
         description: service.body,
         provider: { "@id": "https://thisishowwesee.com/#business" },
       },
@@ -77,19 +77,19 @@ const schema = [
 ---
 
 <Layout
-  title="How We See LLC — Flow Cytometry & Cell Therapy Consulting | Howie Seay"
-  description="How We See LLC is Howie Seay's consulting practice: flow cytometry and spectral panel design, product strategy for life-science tools, and cell therapy manufacturing automation."
+  title="How We See LLC — Product Development Consulting | Howie Seay"
+  description="How We See LLC is Howie Seay's consulting practice: product discovery, strategy, roadmaps, pricing, and fractional product leadership for technical and regulated products."
   schema={schema}
 >
   <section class="hero">
     <div class="container">
       <p class="eyebrow">How We See LLC</p>
-      <h1>Flow cytometry consulting, <span class="accent">bench to product</span></h1>
+      <h1>Product development for <span class="accent">hard problems</span></h1>
       <p class="hero-lede">
-        Good data is still harder to get than it should be. I am Howie Seay, an innovative product
-        leader and board-certified cytometrist, and How We See LLC is where I help labs, core
-        facilities, and instrument makers close the gap: panel design and spectral analysis,
-        product strategy for life-science tools, and automated cell therapy manufacturing.
+        I am Howie Seay, an innovative product development specialist. How We See LLC is where I
+        take products from a vague idea to something people can actually buy and use: discovery and
+        requirements, business cases and pricing, roadmaps and launch. Fifteen years of it in
+        instruments, software, and regulated manufacturing, where getting it wrong is expensive.
       </p>
       <div class="hero-actions">
         <a href="mailto:howie@thisishowwesee.com" class="button special">Start a conversation</a>
@@ -99,19 +99,19 @@ const schema = [
       <div class="stats">
         <div>
           <span class="stat-num">15+</span>
-          <span class="stat-label">Years in cytometry</span>
+          <span class="stat-label">Years building products</span>
         </div>
         <div>
           <span class="stat-num">2</span>
           <span class="stat-label">Granted patents</span>
         </div>
         <div>
-          <span class="stat-num">15+</span>
-          <span class="stat-label">Publications</span>
+          <span class="stat-num">30+</span>
+          <span class="stat-label">Engineers led</span>
         </div>
         <div>
-          <span class="stat-num">SCYM</span>
-          <span class="stat-label">Board certified (ASCP)</span>
+          <span class="stat-num">15+</span>
+          <span class="stat-label">Publications</span>
         </div>
       </div>
     </div>
@@ -122,7 +122,8 @@ const schema = [
       <p class="eyebrow">01 / Services</p>
       <h2>What How We See does</h2>
       <p style="color: var(--text-dim); margin-bottom: 2.5rem;">
-        Three threads, one idea: measurement you can trust, at the scale medicine needs.
+        Three threads, one idea: build the thing people actually need, and know why before you
+        build it.
       </p>
 
       <div class="feature-grid">
@@ -168,10 +169,10 @@ const schema = [
           <p class="eyebrow">03 / Credentials</p>
           <h2>Why me</h2>
           <p>
-            I ran fee-for-service cytometry and sorting cores at the University of Florida, invented
-            and patented a panel design method at BD, helped build the spectral unmixing in FlowJo,
-            and now lead product for an automated cell therapy manufacturing platform. The receipts
-            are public.
+            I have led product across four scrum teams and 30+ engineers, invented and patented a
+            method that shipped into a commercial product, built the business cases that decided
+            what a Fortune 500 funded, and run a fee-for-service operation with its own P&amp;L. The
+            receipts are public.
           </p>
           <div class="hero-actions">
             <a href="/cv" class="button">View CV</a>
@@ -190,13 +191,12 @@ const schema = [
       <p class="eyebrow">04 / Resources</p>
       <h2>Free, before you hire anyone</h2>
       <p>
-        A curated guide to flow cytometry: the communities worth joining, the books worth reading,
-        the software worth learning, and the courses worth the time. Everything I wish someone had
-        handed me on day one. There is also a compensation guide, so you know what this work is
-        worth on either side of the table.
+        A curated guide to flow cytometry for anyone working in it, and a compensation guide so you
+        know what this work is worth on either side of the table. Both are free and neither asks for
+        your email.
       </p>
       <div class="hero-actions">
-        <a href="/flowsites" class="button">Browse the resources</a>
+        <a href="/flowsites" class="button">Flow resources</a>
         <a href="/compensation" class="button">Compensation guide</a>
       </div>
     </div>
@@ -207,8 +207,8 @@ const schema = [
       <p class="eyebrow">05 / Contact</p>
       <h2>Let's talk</h2>
       <p>
-        Tell me what you are measuring and what is going wrong. Email is the fastest way to reach
-        How We See LLC; LinkedIn works too.
+        Tell me what you are building and where it is stuck. Email is the fastest way to reach How
+        We See LLC; LinkedIn works too.
       </p>
       <div class="hero-actions">
         <a href="mailto:howie@thisishowwesee.com" class="button special"
