@@ -5,11 +5,13 @@ import "../styles/main.css";
 interface Props {
   title: string;
   description?: string;
+  noindex?: boolean;
 }
 
 const {
   title,
   description = "Howie Seay. Product leadership in flow cytometry, spectral analysis, and automated cell therapy manufacturing.",
+  noindex = false,
 } = Astro.props;
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
@@ -39,6 +41,7 @@ const year = 2026;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#0a0c10" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
