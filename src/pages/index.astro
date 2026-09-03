@@ -1,20 +1,99 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const services = [
+  {
+    kicker: "Flow cytometry & spectral",
+    title: "Panels that work the first time",
+    body: "Multicolor and full spectral panel design, unmixing and controls strategy, instrument QC, and the troubleshooting that gets a stalled experiment moving again. Fifteen years on conventional and spectral platforms, and a granted patent on modeling and minimizing spillover spreading.",
+    points: [
+      "Panel design and spillover-spread review",
+      "Spectral setup, unmixing, and control strategy",
+      "Core facility operations, rates, and QC programs",
+      "Training for teams new to spectral",
+    ],
+  },
+  {
+    kicker: "Product strategy",
+    title: "Requirements from the bench, not the boardroom",
+    body: "Fractional product leadership for instrument and software companies selling into life science. Requirements gathered face to face with the scientists who use the thing, then the business cases, pricing, and roadmaps that survive contact with reality.",
+    points: [
+      "Voice-of-customer and user research programs",
+      "Business cases, ROI models, and pricing structure",
+      "Roadmap and release planning across scrum teams",
+      "Competitive and market assessment",
+    ],
+  },
+  {
+    kicker: "Cell therapy automation",
+    title: "Closing the loop on manufacturing",
+    body: "Advisory on automated cell therapy manufacturing: how analytics and sorting integrate into a closed process, and what traceability a platform needs before it can make real patient doses under FDA-regulated quality systems.",
+    points: [
+      "In-process and release analytics integration",
+      "Closed-system cell selection and sorting",
+      "Traceability, records, and quality-system readiness",
+      "Technical due diligence for investors and partners",
+    ],
+  },
+];
+
+const engagements = [
+  {
+    title: "Start with a call",
+    body: "Thirty minutes, no charge, to find out whether the problem is one I can actually help with. If it is not, I will usually know who can.",
+  },
+  {
+    title: "Scope the work",
+    body: "A short written proposal: the question, what you get, and what it costs. Half-day advisory sessions, fixed-scope projects, and monthly fractional retainers all work.",
+  },
+  {
+    title: "Do the work",
+    body: "On your instruments, in your data, or alongside your product team. You get artifacts you can use without me: panel files, protocols, requirement docs, business cases.",
+  },
+];
+
+const schema = [
+  {
+    "@type": "WebPage",
+    "@id": "https://thisishowwesee.com/#webpage",
+    url: "https://thisishowwesee.com/",
+    name: "How We See LLC — flow cytometry and cell therapy consulting",
+    about: { "@id": "https://thisishowwesee.com/#business" },
+  },
+  {
+    "@type": "OfferCatalog",
+    name: "Consulting services",
+    itemListElement: services.map((service) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: service.kicker,
+        description: service.body,
+        provider: { "@id": "https://thisishowwesee.com/#business" },
+      },
+    })),
+  },
+];
 ---
 
-<Layout title="Howie Seay — this.is.how.we.see">
+<Layout
+  title="How We See LLC — Flow Cytometry & Cell Therapy Consulting | Howie Seay"
+  description="How We See LLC is Howie Seay's consulting practice: flow cytometry and spectral panel design, product strategy for life-science tools, and cell therapy manufacturing automation."
+  schema={schema}
+>
   <section class="hero">
     <div class="container">
-      <p class="eyebrow">Senior Product Manager</p>
-      <h1>Howie <span class="accent">Seay</span></h1>
+      <p class="eyebrow">How We See LLC</p>
+      <h1>Flow cytometry consulting, <span class="accent">bench to product</span></h1>
       <p class="hero-lede">
-        Good data is still harder to get than it should be. I build the instruments and software
-        that close the gap: flow cytometry, spectral analysis, and automated cell therapy
-        manufacturing.
+        Good data is still harder to get than it should be. I am Howie Seay, an innovative product
+        leader and board-certified cytometrist, and How We See LLC is where I help labs, core
+        facilities, and instrument makers close the gap: panel design and spectral analysis,
+        product strategy for life-science tools, and automated cell therapy manufacturing.
       </p>
       <div class="hero-actions">
-        <a href="/cv" class="button special">View CV</a>
-        <a href="/flowsites" class="button">Flow Resources</a>
+        <a href="mailto:howie@thisishowwesee.com" class="button special">Start a conversation</a>
+        <a href="/about" class="button">About Howie</a>
       </div>
 
       <div class="stats">
@@ -40,44 +119,45 @@ import Layout from "../layouts/Layout.astro";
 
   <section class="section">
     <div class="container">
-      <p class="eyebrow">01 / Focus</p>
-      <h2>What I work on</h2>
+      <p class="eyebrow">01 / Services</p>
+      <h2>What How We See does</h2>
       <p style="color: var(--text-dim); margin-bottom: 2.5rem;">
         Three threads, one idea: measurement you can trust, at the scale medicine needs.
       </p>
 
       <div class="feature-grid">
-        <article class="feature-card">
-          <p class="feature-kicker">Cell therapy manufacturing</p>
-          <h3>Making the automated line real</h3>
-          <p>
-            Product for the Cell Shuttle at Cellares: orchestration, scheduling, reagent and
-            information management across four teams and 30+ engineers. That includes the
-            traceability that lets the platform make real patient doses under FDA-regulated quality
-            systems.
-          </p>
-        </article>
-
-        <article class="feature-card">
-          <p class="feature-kicker">Cytometry &amp; spectral</p>
-          <h3>Fifteen years on the instruments</h3>
-          <p>
-            Conventional and full spectral, panel design, cell sorting, and the troubleshooting that
-            keeps a core running. Named inventor on a granted method for modeling and minimizing
-            spillover spreading, and board certified as a Specialist in Cytometry.
-          </p>
-        </article>
-
-        <article class="feature-card">
-          <p class="feature-kicker">Science into software</p>
-          <h3>Requirements from the bench, not the boardroom</h3>
-          <p>
-            Gathered face to face with the scientists who use the thing, at the booth, on site, in the
-            lab. Then come the business cases, pricing, and roadmaps that survive contact with
-            reality.
-          </p>
-        </article>
+        {
+          services.map((service) => (
+            <article class="feature-card">
+              <p class="feature-kicker">{service.kicker}</p>
+              <h3>{service.title}</h3>
+              <p>{service.body}</p>
+              <ul>
+                {service.points.map((point) => (
+                  <li>{point}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
       </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">02 / Engagements</p>
+      <h2>How it works</h2>
+      <ol class="steps">
+        {
+          engagements.map((step) => (
+            <li>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </li>
+          ))
+        }
+      </ol>
     </div>
   </section>
 
@@ -85,14 +165,18 @@ import Layout from "../layouts/Layout.astro";
     <div class="container">
       <div class="split">
         <div>
-          <p class="eyebrow">02 / Resources</p>
-          <h2>Flow cytometry, mapped</h2>
+          <p class="eyebrow">03 / Credentials</p>
+          <h2>Why me</h2>
           <p>
-            A curated guide to the field: the communities worth joining, the books worth reading, the
-            software worth learning, and the courses worth the time. Everything I wish someone had
-            handed me on day one.
+            I ran fee-for-service cytometry and sorting cores at the University of Florida, invented
+            and patented a panel design method at BD, helped build the spectral unmixing in FlowJo,
+            and now lead product for an automated cell therapy manufacturing platform. The receipts
+            are public.
           </p>
-          <a href="/flowsites" class="button">Browse the resources</a>
+          <div class="hero-actions">
+            <a href="/cv" class="button">View CV</a>
+            <a href="/pubs" class="button">Publications</a>
+          </div>
         </div>
         <div class="split-media">
           <img src="/images/pic01.jpg" alt="" loading="lazy" />
@@ -103,93 +187,40 @@ import Layout from "../layouts/Layout.astro";
 
   <section class="section">
     <div class="container">
-      <p class="eyebrow">03 / Contact</p>
+      <p class="eyebrow">04 / Resources</p>
+      <h2>Free, before you hire anyone</h2>
+      <p>
+        A curated guide to flow cytometry: the communities worth joining, the books worth reading,
+        the software worth learning, and the courses worth the time. Everything I wish someone had
+        handed me on day one. There is also a compensation guide, so you know what this work is
+        worth on either side of the table.
+      </p>
+      <div class="hero-actions">
+        <a href="/flowsites" class="button">Browse the resources</a>
+        <a href="/compensation" class="button">Compensation guide</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">05 / Contact</p>
       <h2>Let's talk</h2>
       <p>
-        Flow cytometry, product work in life sciences, or something else entirely. LinkedIn is
-        the fastest way to reach me.
+        Tell me what you are measuring and what is going wrong. Email is the fastest way to reach
+        How We See LLC; LinkedIn works too.
       </p>
-      <a
-        href="https://www.linkedin.com/in/this-is-how-we-see/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="button special">Connect on LinkedIn</a
-      >
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <div class="split">
-        <div>
-          <p class="eyebrow">04 / Elsewhere</p>
-          <h2>Get SH*t Done</h2>
-          <p>
-            GS*D helps small businesses grow, with skill-building workshops for the DIY-inclined and
-            full project management for anyone ready to hand it off. Consultation, education,
-            facilitation. Run by Danielle Seay.
-          </p>
-          <a
-            href="https://www.linkedin.com/in/danielle-seay-96628a172/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="button">Get serviced</a
-          >
-        </div>
-        <div class="logo-panel">
-          <img src="/images/pic11.jpg" alt="Get SH*t Done — consultation, education, facilitation" loading="lazy" />
-        </div>
+      <div class="hero-actions">
+        <a href="mailto:howie@thisishowwesee.com" class="button special"
+          >howie@thisishowwesee.com</a
+        >
+        <a
+          href="https://www.linkedin.com/in/this-is-how-we-see/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="button">Connect on LinkedIn</a
+        >
       </div>
     </div>
   </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="split">
-        <div class="odds-viz" aria-hidden="true">
-          <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="g1" x1="0" x2="1">
-                <stop offset="0" stop-color="#22d3ee" /><stop offset="1" stop-color="#8b5cf6" />
-              </linearGradient>
-              <linearGradient id="g2" x1="0" x2="1">
-                <stop offset="0" stop-color="#8b5cf6" /><stop offset="1" stop-color="#ec4899" />
-              </linearGradient>
-            </defs>
-            <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#6b7889">
-              <text x="0" y="26">ORDER UP</text>
-              <text x="0" y="70">CALL TRUMP</text>
-              <text x="0" y="114">GO ALONE</text>
-              <text x="0" y="158">PASS</text>
-              <text x="0" y="202" fill="#98a4b3">EXPECTED POINTS</text>
-            </g>
-            <g>
-              <rect x="118" y="14" width="252" height="14" fill="rgba(242,245,247,.06)" rx="2" />
-              <rect x="118" y="14" width="196" height="14" fill="url(#g1)" rx="2" />
-              <rect x="118" y="58" width="252" height="14" fill="rgba(242,245,247,.06)" rx="2" />
-              <rect x="118" y="58" width="151" height="14" fill="url(#g1)" rx="2" />
-              <rect x="118" y="102" width="252" height="14" fill="rgba(242,245,247,.06)" rx="2" />
-              <rect x="118" y="102" width="68" height="14" fill="url(#g2)" rx="2" />
-              <rect x="118" y="146" width="252" height="14" fill="rgba(242,245,247,.06)" rx="2" />
-              <rect x="118" y="146" width="106" height="14" fill="rgba(242,245,247,.18)" rx="2" />
-            </g>
-            <g font-family="IBM Plex Mono, monospace" font-size="10" fill="#98a4b3">
-              <text x="330" y="202" text-anchor="end">+0.74</text>
-            </g>
-            <line x1="118" y1="188" x2="370" y2="188" stroke="rgba(242,245,247,.12)" />
-          </svg>
-        </div>
-        <div>
-          <p class="eyebrow">05 / Projects</p>
-          <h2>Things built to settle an argument</h2>
-          <p>
-            Side projects tend to start as a question nobody could answer at the table. The Euchre
-            odds simulator runs Monte Carlo trials across your hand, seat, and the upcard to work out
-            whether calling is the right move, then shows its reasoning.
-          </p>
-          <a href="/euchre" class="button">Run the numbers</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
 </Layout>

@@ -1,0 +1,209 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const schema = [
+  {
+    "@type": "AboutPage",
+    "@id": "https://thisishowwesee.com/about#webpage",
+    url: "https://thisishowwesee.com/about",
+    name: "About Howie Seay",
+    mainEntity: { "@id": "https://thisishowwesee.com/#howie" },
+  },
+];
+---
+
+<Layout
+  title="About Howie Seay — Product Leader & Board-Certified Cytometrist"
+  description="Howie Seay: fifteen years in flow cytometry, two granted patents, board certified as a Specialist in Cytometry, and product leader for an automated cell therapy manufacturing platform."
+  schema={schema}
+>
+  <header class="page-head">
+    <div class="container">
+      <p class="eyebrow">About</p>
+      <h1>Howie <span class="accent">Seay</span></h1>
+      <p>
+        Good data is still harder to get than it should be. I build the instruments and software
+        that close the gap: flow cytometry, spectral analysis, and automated cell therapy
+        manufacturing. Consulting work runs through
+        <a href="/">How We See LLC</a>.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">01 / Focus</p>
+      <h2>What I work on</h2>
+      <p style="color: var(--text-dim); margin-bottom: 2.5rem;">
+        Three threads, one idea: measurement you can trust, at the scale medicine needs.
+      </p>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <p class="feature-kicker">Cell therapy manufacturing</p>
+          <h3>Making the automated line real</h3>
+          <p>
+            Product for the Cell Shuttle at Cellares: orchestration, scheduling, reagent and
+            information management across four teams and 30+ engineers. That includes the
+            traceability that lets the platform make real patient doses under FDA-regulated quality
+            systems.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <p class="feature-kicker">Cytometry &amp; spectral</p>
+          <h3>Fifteen years on the instruments</h3>
+          <p>
+            Conventional and full spectral, panel design, cell sorting, and the troubleshooting that
+            keeps a core running. Named inventor on a granted method for modeling and minimizing
+            spillover spreading, and board certified as a Specialist in Cytometry.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <p class="feature-kicker">Science into software</p>
+          <h3>Requirements from the bench, not the boardroom</h3>
+          <p>
+            Gathered face to face with the scientists who use the thing, at the booth, on site, in the
+            lab. Then come the business cases, pricing, and roadmaps that survive contact with
+            reality.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div>
+          <p class="eyebrow">02 / Record</p>
+          <h2>The long version</h2>
+          <p>
+            Fifteen years of it: fee-for-service cytometry and sorting cores at the University of
+            Florida, panel design and spectral unmixing at BD and FlowJo, a genomics platform at
+            Rosalind, and now automated cell therapy manufacturing at Cellares. Two granted patents,
+            a stack of publications, and a peer review habit.
+          </p>
+          <div class="hero-actions">
+            <a href="/cv" class="button special">View CV</a>
+            <a href="/pubs" class="button">Publications</a>
+          </div>
+        </div>
+        <div class="split-media">
+          <img src="/images/pic01.jpg" alt="" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">03 / Resources</p>
+      <h2>Flow cytometry, mapped</h2>
+      <p>
+        A curated guide to the field: the communities worth joining, the books worth reading, the
+        software worth learning, and the courses worth the time. Everything I wish someone had
+        handed me on day one.
+      </p>
+      <a href="/flowsites" class="button">Browse the resources</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div>
+          <p class="eyebrow">04 / Elsewhere</p>
+          <h2>Get SH*t Done</h2>
+          <p>
+            GS*D helps small businesses grow, with skill-building workshops for the DIY-inclined and
+            full project management for anyone ready to hand it off. Consultation, education,
+            facilitation. Run by Danielle Seay.
+          </p>
+          <a
+            href="https://www.linkedin.com/in/danielle-seay-96628a172/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="button">Get serviced</a
+          >
+        </div>
+        <div class="logo-panel">
+          <img src="/images/pic11.jpg" alt="Get SH*t Done — consultation, education, facilitation" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div class="odds-viz" aria-hidden="true">
+          <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#22d3ee" /><stop offset="1" stop-color="#8b5cf6" />
+              </linearGradient>
+              <linearGradient id="g2" x1="0" x2="1">
+                <stop offset="0" stop-color="#8b5cf6" /><stop offset="1" stop-color="#ec4899" />
+              </linearGradient>
+            </defs>
+            <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#6b7889">
+              <text x="0" y="26">ORDER UP</text>
+              <text x="0" y="70">CALL TRUMP</text>
+              <text x="0" y="114">GO ALONE</text>
+              <text x="0" y="158">PASS</text>
+              <text x="0" y="202" fill="#98a4b3">EXPECTED POINTS</text>
+            </g>
+            <g>
+              <rect x="118" y="14" width="252" height="14" fill="rgba(242,245,247,.06)" rx="2" />
+              <rect x="118" y="14" width="196" height="14" fill="url(#g1)" rx="2" />
+              <rect x="118" y="58" width="252" height="14" fill="rgba(242,245,247,.06)" rx="2" />
+              <rect x="118" y="58" width="151" height="14" fill="url(#g1)" rx="2" />
+              <rect x="118" y="102" width="252" height="14" fill="rgba(242,245,247,.06)" rx="2" />
+              <rect x="118" y="102" width="68" height="14" fill="url(#g2)" rx="2" />
+              <rect x="118" y="146" width="252" height="14" fill="rgba(242,245,247,.06)" rx="2" />
+              <rect x="118" y="146" width="106" height="14" fill="rgba(242,245,247,.18)" rx="2" />
+            </g>
+            <g font-family="IBM Plex Mono, monospace" font-size="10" fill="#98a4b3">
+              <text x="330" y="202" text-anchor="end">+0.74</text>
+            </g>
+            <line x1="118" y1="188" x2="370" y2="188" stroke="rgba(242,245,247,.12)" />
+          </svg>
+        </div>
+        <div>
+          <p class="eyebrow">05 / Projects</p>
+          <h2>Things built to settle an argument</h2>
+          <p>
+            Side projects tend to start as a question nobody could answer at the table. The Euchre
+            odds simulator runs Monte Carlo trials across your hand, seat, and the upcard to work out
+            whether calling is the right move, then shows its reasoning.
+          </p>
+          <a href="/euchre" class="button">Run the numbers</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">06 / Contact</p>
+      <h2>Let's talk</h2>
+      <p>
+        Flow cytometry, product work in life sciences, or something else entirely. Email reaches me
+        directly; LinkedIn works too.
+      </p>
+      <div class="hero-actions">
+        <a href="mailto:howie@thisishowwesee.com" class="button special"
+          >howie@thisishowwesee.com</a
+        >
+        <a
+          href="https://www.linkedin.com/in/this-is-how-we-see/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="button">Connect on LinkedIn</a
+        >
+      </div>
+    </div>
+  </section>
+</Layout>
