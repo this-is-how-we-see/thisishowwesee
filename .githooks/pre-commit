@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# Rebuild the encrypted payload for any passcode-gated page whose plaintext
+# changed, and stage it with the commit.
+#
+# The plaintext sources live in private/, which is gitignored — so git can never
+# see that they changed, and a commit would otherwise ship a stale payload while
+# looking perfectly clean. This hook closes that gap.
+#
+# Installed via core.hooksPath (set by `npm install`, or manually with:
+#   git config core.hooksPath .githooks)
+
+set -e
+
+# Nothing to do on a machine without node, or without the private sources.
+command -v node >/dev/null 2>&1 || exit 0
+[ -d private ] || exit 0
+
+node scripts/encrypt-plan.mjs --quiet
+
+# No-op when the payloads are already current.
+git add public/plan

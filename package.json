@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "encrypt": "node scripts/encrypt-plan.mjs",
+    "prepare": "git config core.hooksPath .githooks"
   },
   "dependencies": {
     "astro": "^4.16.0"
