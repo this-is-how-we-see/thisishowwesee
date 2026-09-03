@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "encrypt": "node scripts/encrypt-plan.mjs",
-    "prepare": "git config core.hooksPath .githooks"
+    "prepare": "git config core.hooksPath .githooks || true"
   },
   "dependencies": {
     "astro": "^4.16.0"
