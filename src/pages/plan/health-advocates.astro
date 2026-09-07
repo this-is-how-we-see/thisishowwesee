@@ -831,7 +831,10 @@ import Layout from "../../layouts/Layout.astro";
     doc.innerHTML = html;
     doc.hidden = false;
     gate.remove();
-    document.title = "One Chart — private draft";
+    // Take the title from the decrypted content. Hardcoding it here would ship
+    // the private document's name in the public JS bundle.
+    const heading = doc.querySelector("h1")?.textContent?.trim();
+    if (heading) document.title = `${heading} — private draft`;
     window.scrollTo(0, 0);
   }
 
