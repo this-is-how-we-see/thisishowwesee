@@ -1,22 +1,49 @@
 #!/bin/sh
 #
-# Rebuild the encrypted payload for any passcode-gated page whose plaintext
-# changed, and stage it with the commit.
+# Warn when a private document changed on disk but was never published.
 #
-# The plaintext sources live in private/, which is gitignored — so git can never
-# see that they changed, and a commit would otherwise ship a stale payload while
-# looking perfectly clean. This hook closes that gap.
+# The plaintext sources in private/ are gitignored and the documents now live
+# in a private Vercel Blob, so git cannot see an edit and a commit cannot carry
+# one. That is fine, but it makes "I changed the doc" and "readers can see the
+# change" two separate acts. This hook says so rather than letting the edit sit
+# on the laptop unnoticed.
+#
+# This only warns. It never blocks a commit: nothing in the commit depends on
+# the blob being current.
 #
 # Installed via core.hooksPath (set by `npm install`, or manually with:
 #   git config core.hooksPath .githooks)
 
-set -e
-
-# Nothing to do on a machine without node, or without the private sources.
-command -v node >/dev/null 2>&1 || exit 0
 [ -d private ] || exit 0
+command -v node >/dev/null 2>&1 || exit 0
 
-node scripts/encrypt-plan.mjs --quiet
+node - <<'NODE'
+const { readFileSync, existsSync } = require('node:fs');
+const { createHash } = require('node:crypto');
 
-# No-op when the payloads are already current.
-git add public/plan
+const SOURCES = [
+  'private/healthcare.src.html',
+  'private/health-advocates.src.html',
+];
+
+let state = {};
+try { state = JSON.parse(readFileSync('private/.publish-state.json', 'utf8')); } catch {}
+
+const stale = SOURCES.filter((source) => {
+  if (!existsSync(source)) return false;
+  const hash = createHash('sha256').update(readFileSync(source, 'utf8')).digest('hex');
+  return state[source] !== hash;
+});
+
+if (stale.length) {
+  console.error('');
+  console.error('  Not published yet:');
+  for (const source of stale) console.error(`    ${source}`);
+  console.error('');
+  console.error('  Readers still see the previous version. Publish with:');
+  console.error('    npm run publish-private');
+  console.error('');
+}
+NODE
+
+exit 0

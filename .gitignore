@@ -5,6 +5,17 @@ node_modules/
 dist/
 .claude/settings.local.json
 
-# Plaintext sources for passcode-gated pages. This repo is public — only the
-# encrypted build output in public/plan/ may ever be committed.
+# Plaintext sources for the Google-gated documents. This repo is public, and
+# these documents now live in a private Vercel Blob instead — nothing derived
+# from them, encrypted or otherwise, may ever be committed.
 private/
+
+
+# Local environment for the private-document API. The example file is
+# committed on purpose; it holds no values.
+.env
+.env*.local
+!.env.example
+
+# Google Drive staging directory. Never commit it.
+.tmp.driveupload/

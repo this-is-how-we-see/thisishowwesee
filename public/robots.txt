@@ -1,5 +1,7 @@
-# /plan/* is passcode-gated and carries <meta name="robots" content="noindex">.
-# It is deliberately crawlable so that noindex can actually be read and honored.
+# /healthcare and /plan/* are gated by Google sign-in and carry
+# <meta name="robots" content="noindex">. They are deliberately crawlable so
+# that noindex can actually be read and honored. A crawler that fetches them
+# gets the sign-in screen and nothing else: the documents are not in the HTML.
 User-agent: *
 Allow: /
 

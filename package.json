@@ -6,10 +6,12 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "encrypt": "node scripts/encrypt-plan.mjs",
+    "dev-api": "vercel dev",
+    "publish-private": "node scripts/publish-private.mjs",
     "prepare": "git config core.hooksPath .githooks || true"
   },
   "dependencies": {
-    "astro": "^4.16.0"
+    "astro": "^4.16.0",
+    "@vercel/blob": "^2.8.0"
   }
 }
