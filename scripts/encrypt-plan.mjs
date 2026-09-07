@@ -33,6 +33,11 @@ const PAGES = [
     output: "public/plan/health-advocates.json",
     passcode: "1321",
   },
+  {
+    source: "private/healthcare.src.html",
+    output: "public/plan/healthcare.json",
+    passcode: "1321",
+  },
 ];
 
 const ITERATIONS = 600_000;
