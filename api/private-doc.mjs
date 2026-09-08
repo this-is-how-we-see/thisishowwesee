@@ -19,12 +19,13 @@ import { json, signedInEmail, missingConfig } from './_lib.mjs';
  *
  * A hardcoded table, NOT a pathname built from the query string. Interpolating
  * the slug into the pathname would turn this route into "read any blob in the
- * store", which is the whole store, not just these two files.
+ * store", which is the whole store, not just the files listed here.
  */
 const DOCS = {
   'healthcare': 'private/healthcare.html',
   'health-advocates': 'private/health-advocates.html',
   'budget': 'private/budget.html',
+  'member': 'private/member.html',
 };
 
 async function handler(request) {
