@@ -111,6 +111,28 @@ const { slug, eyebrow = "Private" } = Astro.props;
     border-color: var(--line-strong);
   }
 
+  /* Google's own button.
+     It arrives as real DOM in this page, not inside an iframe — the iframe the
+     library also creates is 0x0 and only carries messages — so its surfaces can
+     be repainted here. Left alone, the variant Google shows to someone already
+     signed in ("Sign in as Howie", with the avatar and address) is a white card,
+     which reads as a hole punched in a dark page.
+     Only the surface changes. Google keeps its own type, spacing and logo, and
+     the small white circle the G sits on stays, because Google's branding asks
+     for it. An inset shadow draws the hairline so the box never grows. */
+  .gate-signin [role="button"] {
+    background-color: var(--bg-elev) !important;
+    box-shadow: inset 0 0 0 1px var(--line) !important;
+    transition: background-color var(--ease);
+  }
+  .gate-signin [role="button"]:hover {
+    background-color: var(--bg-elev-2) !important;
+    box-shadow: inset 0 0 0 1px var(--line-strong) !important;
+  }
+  .gate-signin [role="button"] :is(span, div) {
+    color: var(--text) !important;
+  }
+
   .gate-status {
     margin-top: 1.75rem;
     min-height: 1.4em;
@@ -946,7 +968,7 @@ const { slug, eyebrow = "Private" } = Astro.props;
       auto_select: true,
     });
     google.accounts.id.renderButton(buttonHost, {
-      theme: "filled_blue",
+      theme: "filled_black",
       size: "large",
       text: "signin_with",
       shape: "pill",

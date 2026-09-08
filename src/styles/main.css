@@ -6,6 +6,12 @@
 /* ---------- Tokens ---------- */
 
 :root {
+  /* This site is dark only. Declaring it in CSS, and not just in the
+     color-scheme meta tag, is what browsers pass down to third-party widgets
+     and form controls, so they stop painting a light canvas behind
+     themselves. */
+  color-scheme: dark;
+
   /* surfaces */
   --bg: #0a0c10;
   --bg-elev: #111721;
