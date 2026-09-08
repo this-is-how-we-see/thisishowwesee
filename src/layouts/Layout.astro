@@ -85,14 +85,17 @@ const jsonLd = {
   ],
 };
 
+// `icon` replaces the label in the header bar and joins it in the mobile
+// panel. Euchre is the one page here that is not consulting work, so it wears
+// a mark instead of a word and stops competing with the rest for attention.
 const links = [
   { href: "/", label: "Consulting" },
   { href: "/about", label: "About" },
   { href: "/flowsites", label: "Flow Resources" },
-  { href: "/compensation", label: "Compensation" },
+  { href: "/compensation", label: "Comp" },
   { href: "/cv", label: "CV" },
   { href: "/pubs", label: "Publications" },
-  { href: "/euchre", label: "Euchre" },
+  { href: "/euchre", label: "Euchre", icon: "cards" as const },
 ];
 
 const social = [
@@ -152,8 +155,14 @@ const year = 2026;
             {
               links.map((link) => (
                 <li>
-                  <a href={link.href} aria-current={path === link.href ? "page" : undefined}>
-                    {link.label}
+                  <a
+                    href={link.href}
+                    class:list={{ "nav-icon-link": link.icon }}
+                    title={link.icon ? link.label : undefined}
+                    aria-current={path === link.href ? "page" : undefined}
+                  >
+                    {link.icon ? <Icon name={link.icon} /> : null}
+                    <span class:list={{ "visually-hidden": link.icon }}>{link.label}</span>
                   </a>
                 </li>
               ))
@@ -175,6 +184,7 @@ const year = 2026;
       {
         links.map((link) => (
           <a href={link.href} aria-current={path === link.href ? "page" : undefined}>
+            {link.icon ? <Icon name={link.icon} class="nav-panel-icon" /> : null}
             {link.label}
           </a>
         ))
@@ -188,7 +198,10 @@ const year = 2026;
 
     <footer id="footer">
       <div class="container inner">
-        <p class="colophon">&copy; {year} Howie Seay &middot; Rogue Valley, Oregon</p>
+        <p class="colophon">
+          &copy; {year} Howie Seay &middot; Rogue Valley, Oregon &middot;
+          <a href="/member">Member</a>
+        </p>
         <ul class="icons">
           {
             social.map((item) => (

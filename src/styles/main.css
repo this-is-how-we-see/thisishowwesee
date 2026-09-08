@@ -289,6 +289,11 @@ b {
 }
 
 .nav-links {
+  /* Every link is a box of this height, word or mark, so the underline on the
+     current page lands in the same place whatever the link contains. */
+  --nav-link-h: 2rem;
+
+  align-items: center;
   display: flex;
   gap: 1.75rem;
   list-style: none;
@@ -297,11 +302,13 @@ b {
 }
 
 .nav-links a {
+  align-items: center;
   color: var(--text-dim);
+  display: flex;
   font-family: var(--font-mono);
   font-size: 0.78rem;
+  height: var(--nav-link-h);
   letter-spacing: 0.08em;
-  padding-block: 0.5rem;
   position: relative;
   text-transform: uppercase;
 }
@@ -320,6 +327,13 @@ b {
   left: 0;
   position: absolute;
   right: 0;
+}
+
+/* The mark is drawn larger than the type beside it because a 24-unit outline
+   reads smaller than uppercase mono at the same nominal size. It still sits in
+   the same 2rem box as every word link. */
+.nav-links a.nav-icon-link .icon-svg {
+  height: 1.5rem;
 }
 
 .nav-toggle {
@@ -1043,6 +1057,20 @@ table tbody tr:last-child td {
   text-transform: uppercase;
 }
 
+/* The way in to the gated documents. It sits in the colophon rather than the
+   nav because it is for two people, not for visitors, and it carries the
+   underline so that it does not read as more of the copyright line. */
+.colophon a {
+  color: var(--text-dim);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+}
+
+.colophon a:hover {
+  color: var(--cyan);
+  text-decoration-color: currentColor;
+}
+
 /* ---------- Icons / utility ---------- */
 
 .icon-svg {
@@ -1128,13 +1156,26 @@ table tbody tr:last-child td {
 }
 
 .nav-panel a {
+  align-items: center;
   border-bottom: 1px solid var(--line);
   color: var(--text);
+  display: flex;
   font-family: var(--font-mono);
   font-size: 0.85rem;
+  gap: 0.6rem;
   letter-spacing: 0.08em;
   padding: 1rem 0;
   text-transform: uppercase;
+}
+
+/* The panel has room for both, so the mark rides beside the word rather than
+   replacing it. It is kept a shade under the line box so every row in the
+   stack stays the same height. */
+.nav-panel .nav-panel-icon {
+  --card-face: var(--bg-elev);
+
+  flex-shrink: 0;
+  height: 1.375rem;
 }
 
 .nav-panel a:hover,

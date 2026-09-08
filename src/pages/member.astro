@@ -1,0 +1,19 @@
+---
+/**
+ * Google-gated index of the private documents.
+ *
+ * This page is gated like the documents it lists, and for the same reason: the
+ * list of what exists is itself private. Nothing about it sits in this repo —
+ * the index is a private Vercel Blob, published from private/member.src.html
+ * with `npm run publish-private`, exactly like every other private document.
+ *
+ * Add a document to that source file when you add one to the DOCS tables in
+ * api/private-doc.mjs and scripts/publish-private.mjs.
+ */
+import Layout from "../layouts/Layout.astro";
+import PrivateDoc from "../components/PrivateDoc.astro";
+---
+
+<Layout title="Private" description="A private document." noindex={true}>
+  <PrivateDoc slug="member" eyebrow="Private" />
+</Layout>

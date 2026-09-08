@@ -111,12 +111,11 @@ const { slug, eyebrow = "Private" } = Astro.props;
     border-color: var(--line-strong);
   }
 
-  /* Google's own button.
-     It arrives as real DOM in this page, not inside an iframe — the iframe the
-     library also creates is 0x0 and only carries messages — so its surfaces can
-     be repainted here. Left alone, the variant Google shows to someone already
-     signed in ("Sign in as Howie", with the avatar and address) is a white card,
-     which reads as a hole punched in a dark page.
+  /* Google's own button, in the form it takes for a reader who is not signed in
+     to Google. That form is real DOM in this page rather than an iframe — the
+     iframe the library also creates is 0x0 and only carries messages — so its
+     surface can be repainted to match the site instead of shipping Google's own
+     black. The signed-in form is a different thing entirely; see below.
      Only the surface changes. Google keeps its own type, spacing and logo, and
      the small white circle the G sits on stays, because Google's branding asks
      for it. An inset shadow draws the hairline so the box never grows. */
@@ -692,7 +691,16 @@ const { slug, eyebrow = "Private" } = Astro.props;
   .plan-doc .law-rec .head { background: rgba(245, 158, 11, 0.12); color: var(--p-warn); }
   .plan-doc .law-no .head { background: rgba(251, 113, 133, 0.12); color: var(--p-bad); }
 
-  /* checklist */
+  /* checklist
+     Each item is a two-column grid: the counter in ::before takes the first
+     column, and the item's content takes the second. So the content of an
+     <li> MUST be a single element:
+
+         <li><div>The text. <span class="when">A date</span></div></li>
+
+     A bare text node beside another child becomes a second grid item, which
+     auto-places into row 2 of the 2.4rem counter column and wraps one word
+     per line. */
   .plan-doc .checklist {
     counter-reset: step;
     list-style: none;
@@ -803,6 +811,69 @@ const { slug, eyebrow = "Private" } = Astro.props;
   @media (max-width: 34rem) {
     .plan-doc a.vid { grid-template-columns: 1fr; }
     .plan-doc a.vid .play { display: none; }
+  }
+
+  /* ---------- Index of documents (/member) ---------- */
+
+  /* One row per private document. The rows are one border apart rather than
+     separate cards, so a list of four does not read as four unrelated boxes. */
+  .plan-doc .doc-list {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-top: 2.5rem;
+  }
+
+  .plan-doc a.doc-item {
+    display: block;
+    padding: 1.1rem 1.25rem;
+    background: var(--bg-elev);
+    border-top: 1px solid var(--line);
+    color: inherit;
+    text-decoration: none;
+    transition: background-color var(--ease);
+  }
+
+  .plan-doc a.doc-item:first-child { border-top: none; }
+  .plan-doc a.doc-item:hover { background: var(--bg-elev-2); }
+
+  .plan-doc a.doc-item:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: -2px;
+  }
+
+  .plan-doc a.doc-item .dk {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 0.35rem;
+  }
+
+  .plan-doc a.doc-item .dt {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.25;
+    margin-bottom: 0.25rem;
+  }
+
+  .plan-doc a.doc-item:hover .dt { color: var(--p-accent); }
+
+  .plan-doc a.doc-item .dd {
+    font-size: 0.86rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin: 0;
+    max-width: 54em;
+  }
+
+  .plan-doc a.doc-item .du {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-faint);
+    margin-top: 0.4rem;
   }
 
   .plan-doc .plan-foot {

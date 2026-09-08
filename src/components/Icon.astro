@@ -1,6 +1,13 @@
 ---
-// Icon outlines extracted from FontAwesome 4.7 so the original glyphs
-// render identically without shipping ~700KB of webfonts.
+// Two kinds of icon live in one table.
+//
+// The FontAwesome 4.7 glyphs are `{ w, d }`: a single path in the 1792-unit
+// em box the font used, drawn y-up, so they need the flip transform below.
+// They are extracted rather than webfont-loaded so the original glyphs render
+// identically without shipping ~700KB of fonts.
+//
+// The hand-drawn marks are `{ viewBox, body }`: ordinary y-down SVG in a
+// 24-unit box, with their own strokes and fills, and no flip.
 interface Props {
   name: keyof typeof ICONS;
   class?: string;
@@ -13,20 +20,41 @@ const ICONS = {
   linkedin: { w: 1536, d: "M349 911v-991h-330v991h330zM370 1217q1 -73 -50.5 -122t-135.5 -49h-2q-82 0 -132 49t-50 122q0 74 51.5 122.5t134.5 48.5t133 -48.5t51 -122.5zM1536 488v-568h-329v530q0 105 -40.5 164.5t-126.5 59.5q-63 0 -105.5 -34.5t-63.5 -85.5q-11 -30 -11 -81v-553h-329 q2 399 2 647t-1 296l-1 48h329v-144h-2q20 32 41 56t56.5 52t87 43.5t114.5 15.5q171 0 275 -113.5t104 -332.5z" },
   bars: { w: 1536, d: "M1536 192v-128q0 -26 -19 -45t-45 -19h-1408q-26 0 -45 19t-19 45v128q0 26 19 45t45 19h1408q26 0 45 -19t19 -45zM1536 704v-128q0 -26 -19 -45t-45 -19h-1408q-26 0 -45 19t-19 45v128q0 26 19 45t45 19h1408q26 0 45 -19t19 -45zM1536 1216v-128q0 -26 -19 -45 t-45 -19h-1408q-26 0 -45 19t-19 45v128q0 26 19 45t45 19h1408q26 0 45 -19t19 -45z" },
   times: { w: 1408, d: "M1298 214q0 -40 -28 -68l-136 -136q-28 -28 -68 -28t-68 28l-294 294l-294 -294q-28 -28 -68 -28t-68 28l-136 136q-28 28 -28 68t28 68l294 294l-294 294q-28 28 -28 68t28 68l136 136q28 28 68 28t68 -28l294 -294l294 294q28 28 68 28t68 -28l136 -136q28 -28 28 -68 t-28 -68l-294 -294l294 -294q28 -28 28 -68z" },
+
+  // Two fanned playing cards. Both cards are outlines, so the mark stays quiet
+  // beside uppercase mono type. The faces are opaque, and that is what hides
+  // the back card's lines behind the front one — so they have to match the
+  // surface the mark sits on. Anything drawing this on a surface other than
+  // the page itself sets --card-face to that surface.
+  cards: {
+    viewBox: "0 0 24 24",
+    body: `<g fill="var(--card-face, var(--bg))" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+      <rect x="7" y="5.5" width="10" height="13.5" rx="1.6" transform="rotate(-17 12 19)" />
+      <rect x="7" y="5.5" width="10" height="13.5" rx="1.6" transform="rotate(9 12 19)" />
+    </g>
+    <path d="M12 10.1 13.9 12.5 12 14.9 10.1 12.5Z" fill="currentColor" transform="rotate(9 12 19)" />`,
+  },
 } as const;
 
 const { name, class: className } = Astro.props;
 const icon = ICONS[name];
+const viewBox = "viewBox" in icon ? icon.viewBox : `0 0 ${icon.w} 1792`;
 ---
 
 <svg
   class:list={["icon-svg", className]}
-  viewBox={`0 0 ${icon.w} 1792`}
+  viewBox={viewBox}
   aria-hidden="true"
   focusable="false"
   xmlns="http://www.w3.org/2000/svg"
 >
-  <g transform={`translate(0, 1536) scale(1, -1)`}>
-    <path d={icon.d} />
-  </g>
+  {
+    "body" in icon ? (
+      <Fragment set:html={icon.body} />
+    ) : (
+      <g transform="translate(0, 1536) scale(1, -1)">
+        <path d={icon.d} />
+      </g>
+    )
+  }
 </svg>

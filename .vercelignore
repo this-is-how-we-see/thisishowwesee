@@ -1,3 +1,4 @@
-# Plaintext sources for passcode-gated pages never leave this machine.
-# Only the encrypted payloads in public/plan/ are deployed.
+# Plaintext sources for the Google-gated documents never leave this machine.
+# The documents themselves live in a private Vercel Blob and are fetched at
+# request time by api/private-doc, so nothing derived from them is deployed.
 private/
