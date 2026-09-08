@@ -25,6 +25,7 @@ const SOURCES = [
   'private/healthcare.src.html',
   'private/health-advocates.src.html',
   'private/budget.src.html',
+  'private/aab.src.html',
 ];
 
 let state = {};

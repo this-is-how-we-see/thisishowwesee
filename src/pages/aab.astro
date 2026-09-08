@@ -1,0 +1,15 @@
+---
+/**
+ * Google-gated brief on a CLIA lab for autoantibody screening.
+ *
+ * Everything about the gate lives in PrivateDoc.astro. The content lives in a
+ * private Vercel Blob, not in this repo: it names people, describes a meeting,
+ * and carries figures that are still unverified.
+ */
+import Layout from "../layouts/Layout.astro";
+import PrivateDoc from "../components/PrivateDoc.astro";
+---
+
+<Layout title="Private" description="A private document." noindex={true}>
+  <PrivateDoc slug="aab" eyebrow="Private" />
+</Layout>

@@ -26,6 +26,7 @@ const DOCS = {
   'health-advocates': 'private/health-advocates.html',
   'budget': 'private/budget.html',
   'member': 'private/member.html',
+  'aab': 'private/aab.html',
 };
 
 async function handler(request) {

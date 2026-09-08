@@ -31,6 +31,7 @@ const DOCS = [
   { source: 'private/health-advocates.src.html', pathname: 'private/health-advocates.html' },
   { source: 'private/budget.src.html', pathname: 'private/budget.html' },
   { source: 'private/member.src.html', pathname: 'private/member.html' },
+  { source: 'private/aab.src.html', pathname: 'private/aab.html' },
 ];
 
 /**
