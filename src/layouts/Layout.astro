@@ -98,6 +98,27 @@ const links = [
   { href: "/euchre", label: "Euchre", icon: "cards" as const },
 ];
 
+// The member section is its own small site behind one sign-in, so it gets its
+// own nav. The consulting nav is no use to a reader who arrived to read a
+// document, and the member links are no use to anyone else.
+//
+// These labels come from the slugs, which are already public: they sit in the
+// DOCS table in api/private-doc.mjs and in robots.txt. The document TITLES are
+// private and stay where they are, in the blob. Do not put one here.
+const memberDocs = [
+  { href: "/member", label: "Index" },
+  { href: "/budget", label: "Budget" },
+  { href: "/healthcare", label: "Healthcare" },
+  { href: "/plan/health-advocates", label: "Health Advocates" },
+];
+
+// Adding a page to memberDocs is what puts it in the member section. There is
+// no second list to keep in step.
+const inMember = memberDocs.some((doc) => doc.href === path);
+
+const memberLinks = [...memberDocs, { href: "/", label: "Main site", exit: true }];
+const navLinks = inMember ? memberLinks : links;
+
 const social = [
   { href: "https://www.linkedin.com/in/this-is-how-we-see/", icon: "linkedin", label: "LinkedIn" },
   { href: "https://twitter.com/HowieSeay", icon: "twitter", label: "Twitter" },
@@ -146,18 +167,21 @@ const year = 2026;
 
     <header id="header">
       <div class="container">
-        <a class="wordmark" href="/">
-          <span class="wm-lead">this.is.</span><span class="wm-key">how.we.see</span>
-        </a>
+        <div class="brand">
+          <a class="wordmark" href="/">
+            <span class="wm-lead">this.is.</span><span class="wm-key">how.we.see</span>
+          </a>
+          {inMember && <span class="section-tag">Private</span>}
+        </div>
 
-        <nav aria-label="Main">
+        <nav aria-label={inMember ? "Member" : "Main"}>
           <ul class="nav-links">
             {
-              links.map((link) => (
+              navLinks.map((link) => (
                 <li>
                   <a
                     href={link.href}
-                    class:list={{ "nav-icon-link": link.icon }}
+                    class:list={{ "nav-icon-link": link.icon, "nav-exit": link.exit }}
                     title={link.icon ? link.label : undefined}
                     aria-current={path === link.href ? "page" : undefined}
                   >
@@ -177,13 +201,18 @@ const year = 2026;
       </div>
     </header>
 
-    <nav id="nav-panel" class="nav-panel" aria-label="Main">
+    <nav id="nav-panel" class="nav-panel" aria-label={inMember ? "Member" : "Main"}>
       <button type="button" class="nav-close" aria-label="Close menu">
         <Icon name="times" />
       </button>
+      {inMember && <p class="panel-tag">Private</p>}
       {
-        links.map((link) => (
-          <a href={link.href} aria-current={path === link.href ? "page" : undefined}>
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={{ "nav-exit": link.exit }}
+            aria-current={path === link.href ? "page" : undefined}
+          >
             {link.icon ? <Icon name={link.icon} class="nav-panel-icon" /> : null}
             {link.label}
           </a>
@@ -199,8 +228,15 @@ const year = 2026;
     <footer id="footer">
       <div class="container inner">
         <p class="colophon">
-          &copy; {year} Howie Seay &middot; Rogue Valley, Oregon &middot;
-          <a href="/member">Member</a>
+          &copy; {year} Howie Seay &middot; Rogue Valley, Oregon{
+            /* The way in to the member section. Inside it the nav already
+               carries Index, so this would only repeat it. */
+            !inMember && (
+              <Fragment>
+                {" "}&middot; <a href="/member">Member</a>
+              </Fragment>
+            )
+          }
         </p>
         <ul class="icons">
           {

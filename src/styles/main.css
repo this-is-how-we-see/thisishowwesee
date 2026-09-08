@@ -288,6 +288,29 @@ b {
   font-weight: 700;
 }
 
+/* The wordmark and the section tag travel together, so the header keeps three
+   flex children and its spacing does not shift. */
+.brand {
+  align-items: center;
+  display: flex;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+/* The member section runs its own nav. Without a marker the swapped links read
+   as a broken site, so this says which section you are in. */
+.section-tag {
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  padding: 0.2rem 0.4rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .nav-links {
   /* Every link is a box of this height, word or mark, so the underline on the
      current page lands in the same place whatever the link contains. */
@@ -334,6 +357,16 @@ b {
    the same 2rem box as every word link. */
 .nav-links a.nav-icon-link .icon-svg {
   height: 1.5rem;
+}
+
+/* The way out of the member section. It is a link away from where you are, not
+   another page within it, so it does not compete with the four that are. */
+.nav-links a.nav-exit {
+  color: var(--text-faint);
+}
+
+.nav-links a.nav-exit:hover {
+  color: var(--text);
 }
 
 .nav-toggle {
@@ -1176,6 +1209,23 @@ table tbody tr:last-child td {
 
   flex-shrink: 0;
   height: 1.375rem;
+}
+
+.nav-panel .panel-tag {
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+}
+
+/* Set apart from the pages of the section, the same way it is in the bar. The
+   gap does the separating; a border of its own would sit right under the one
+   the row above already draws. */
+.nav-panel a.nav-exit {
+  color: var(--text-faint);
+  margin-top: 0.75rem;
 }
 
 .nav-panel a:hover,
