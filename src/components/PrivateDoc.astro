@@ -973,7 +973,15 @@ const { slug, eyebrow = "Private" } = Astro.props;
     // the private document's name in the public JS bundle.
     const heading = doc.querySelector("h1")?.textContent?.trim();
     if (heading) document.title = `${heading} — private`;
-    window.scrollTo(0, 0);
+
+    // A link may point at a section inside the document, such as
+    // /budget#writeoffs on a task. The browser resolved that hash while the
+    // gate was still up and the section did not exist, so it did nothing.
+    // Honour it here, now that the content is on the page.
+    const id = decodeURIComponent(location.hash.slice(1));
+    const target = id ? doc.querySelector(`[id="${CSS.escape(id)}"]`) : null;
+    if (target) target.scrollIntoView();
+    else window.scrollTo(0, 0);
   }
 
   /** Fetches the document. Returns nothing and puts the gate back on failure. */
