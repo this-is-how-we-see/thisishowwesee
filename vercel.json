@@ -1,5 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/kids",
+      "destination": "https://seaykids.pages.dev",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/healthcare",
