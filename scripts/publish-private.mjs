@@ -29,6 +29,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DOCS = [
   { source: 'private/healthcare.src.html', pathname: 'private/healthcare.html' },
   { source: 'private/health-advocates.src.html', pathname: 'private/health-advocates.html' },
+  { source: 'private/budget.src.html', pathname: 'private/budget.html' },
 ];
 
 /**

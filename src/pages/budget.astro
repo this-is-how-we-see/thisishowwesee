@@ -1,0 +1,16 @@
+---
+/**
+ * Google-gated household budget.
+ *
+ * Everything about the gate lives in PrivateDoc.astro. The content lives in a
+ * private Vercel Blob, not in this repo. Source: private/budget.src.html,
+ * generated from the budget workbook in Drive; publish with
+ * `npm run publish-private`.
+ */
+import Layout from "../layouts/Layout.astro";
+import PrivateDoc from "../components/PrivateDoc.astro";
+---
+
+<Layout title="Private" description="A private document." noindex={true}>
+  <PrivateDoc slug="budget" eyebrow="Private" />
+</Layout>

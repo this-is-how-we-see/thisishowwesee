@@ -24,6 +24,7 @@ const { createHash } = require('node:crypto');
 const SOURCES = [
   'private/healthcare.src.html',
   'private/health-advocates.src.html',
+  'private/budget.src.html',
 ];
 
 let state = {};

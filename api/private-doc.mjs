@@ -24,6 +24,7 @@ import { json, signedInEmail, missingConfig } from './_lib.mjs';
 const DOCS = {
   'healthcare': 'private/healthcare.html',
   'health-advocates': 'private/health-advocates.html',
+  'budget': 'private/budget.html',
 };
 
 async function handler(request) {
