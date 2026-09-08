@@ -133,6 +133,19 @@ const { slug, eyebrow = "Private" } = Astro.props;
     color: var(--text) !important;
   }
 
+  /* The variant Google shows to a reader who is already signed in — "Sign in as
+     Howie", with the avatar and address — arrives in its own iframe instead, so
+     none of the rules above can reach it. That iframe is 20px wider and 4px
+     taller than the chip it draws, and Google pulls the surplus back with a
+     negative margin, which makes it bleed rather than layout. Google paints the
+     bleed white, and on a dark page it reads as a card sitting behind the chip.
+     Clipping the wrapper removes it. The wrapper is the box Google itself sizes
+     to the chip, so no measurement is repeated here to go stale later. */
+  .gate-signin > div {
+    overflow: hidden;
+    border-radius: 999px;
+  }
+
   .gate-status {
     margin-top: 1.75rem;
     min-height: 1.4em;
