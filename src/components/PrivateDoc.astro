@@ -597,6 +597,72 @@ const { slug, eyebrow = "Private" } = Astro.props;
 
   .plan-doc .src b { color: var(--text-dim); font-weight: 500; }
 
+  /* citations
+     An inline marker is <a class="cite" href="#r8">8</a>; the brackets come
+     from CSS so the markup stays clean and two markers sit together as [7][8].
+     Each reference row carries the matching id, and :target lights the row the
+     reader just jumped to, which is the only way to tell one dense mono row
+     from its neighbours after a jump. */
+  .plan-doc a.cite {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    vertical-align: super;
+    line-height: 0;
+    color: var(--p-accent);
+    text-decoration: none;
+    padding: 0 0.08em;
+  }
+  .plan-doc a.cite::before { content: "["; }
+  .plan-doc a.cite::after { content: "]"; }
+  .plan-doc a.cite:hover { text-decoration: underline; }
+  .plan-doc a.cite:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .plan-doc ol.refs {
+    counter-reset: ref;
+    list-style: none;
+    padding-left: 0;
+    max-width: none;
+    margin-top: 1.5rem;
+  }
+  .plan-doc ol.refs li {
+    counter-increment: ref;
+    display: grid;
+    grid-template-columns: 2.4rem 1fr;
+    gap: 0.9rem;
+    padding: 0.7rem 0.6rem 0.7rem 0;
+    margin: 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.84rem;
+    line-height: 1.5;
+    scroll-margin-top: 2rem;
+  }
+  .plan-doc ol.refs li::before {
+    content: "[" counter(ref) "]";
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--p-accent);
+  }
+  .plan-doc ol.refs li:last-child { border-bottom: none; }
+  .plan-doc ol.refs li:target {
+    background: var(--bg-elev);
+    border-radius: var(--radius);
+    box-shadow: inset 2px 0 0 var(--p-accent);
+    padding-left: 0.6rem;
+  }
+  .plan-doc ol.refs .rt { color: var(--text); }
+  .plan-doc ol.refs .ru {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-faint);
+    word-break: break-word;
+    margin-top: 0.2rem;
+  }
+
   /* callout */
   .plan-doc .callout {
     border: 1px solid var(--line);
