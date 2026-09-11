@@ -2,11 +2,15 @@
 #
 # Warn when a private document changed on disk but was never published.
 #
-# The plaintext sources in private/ are gitignored and the documents now live
-# in a private Vercel Blob, so git cannot see an edit and a commit cannot carry
-# one. That is fine, but it makes "I changed the doc" and "readers can see the
+# The plaintext sources in private/ are gitignored and the documents live in a
+# private Vercel Blob, so git cannot see an edit and a commit cannot carry one.
+# That is fine, but it makes "I changed the doc" and "readers can see the
 # change" two separate acts. This hook says so rather than letting the edit sit
 # on the laptop unnoticed.
+#
+# The document list comes from scripts/private-docs.mjs, which the publisher
+# also reads. It used to be duplicated here and fell a document behind, so an
+# unpublished edit to that one produced no warning at all.
 #
 # This only warns. It never blocks a commit: nothing in the commit depends on
 # the blob being current.
@@ -18,34 +22,38 @@
 command -v node >/dev/null 2>&1 || exit 0
 
 node - <<'NODE'
-const { readFileSync, existsSync } = require('node:fs');
-const { createHash } = require('node:crypto');
+(async () => {
+  const { readFileSync, existsSync } = await import('node:fs');
+  const { pathToFileURL } = await import('node:url');
+  const { resolve } = await import('node:path');
 
-const SOURCES = [
-  'private/healthcare.src.html',
-  'private/health-advocates.src.html',
-  'private/budget.src.html',
-  'private/aab.src.html',
-];
+  let mod;
+  try {
+    mod = await import(pathToFileURL(resolve(process.cwd(), 'scripts/private-docs.mjs')).href);
+  } catch {
+    return; // No module, no warning. Never block a commit over this.
+  }
+  const { DOCS, STATE_FILE, digest, readState, recordedHash } = mod;
 
-let state = {};
-try { state = JSON.parse(readFileSync('private/.publish-state.json', 'utf8')); } catch {}
+  const state = await readState(resolve(process.cwd(), STATE_FILE));
 
-const stale = SOURCES.filter((source) => {
-  if (!existsSync(source)) return false;
-  const hash = createHash('sha256').update(readFileSync(source, 'utf8')).digest('hex');
-  return state[source] !== hash;
-});
+  const stale = DOCS
+    .map((doc) => doc.source)
+    .filter((source) => {
+      if (!existsSync(source)) return false;
+      return recordedHash(state, source) !== digest(readFileSync(source, 'utf8'));
+    });
 
-if (stale.length) {
-  console.error('');
-  console.error('  Not published yet:');
-  for (const source of stale) console.error(`    ${source}`);
-  console.error('');
-  console.error('  Readers still see the previous version. Publish with:');
-  console.error('    npm run publish-private');
-  console.error('');
-}
+  if (stale.length) {
+    console.error('');
+    console.error('  Not published yet:');
+    for (const source of stale) console.error(`    ${source}`);
+    console.error('');
+    console.error('  Readers still see the previous version. Publish with:');
+    console.error('    npm run publish-private');
+    console.error('');
+  }
+})();
 NODE
 
 exit 0
