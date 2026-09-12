@@ -597,6 +597,31 @@ const { slug, eyebrow = "Private" } = Astro.props;
 
   .plan-doc .src b { color: var(--text-dim); font-weight: 500; }
 
+  /* acronyms
+     Every known acronym carries its expansion in a title attribute, written by
+     scripts/annotate-abbr.mjs, so a hover explains it and no glossary section
+     is needed. There are hundreds of them in a long brief, so the hint is a
+     dotted rule in --line: findable when the reader looks for it, and quiet
+     enough to read straight past. The rule picks up the accent on hover. */
+  .plan-doc abbr[title] {
+    text-decoration: underline dotted;
+    text-decoration-color: var(--text-faint);
+    text-underline-offset: 3px;
+    cursor: help;
+  }
+  .plan-doc abbr[title]:hover { text-decoration-color: var(--p-accent); }
+  /* A heading, a stat tile and a table header already carry emphasis; the
+     dotted rule reads as damage there. The tooltip still works. */
+  .plan-doc h1 abbr[title],
+  .plan-doc h2 abbr[title],
+  .plan-doc h3 abbr[title],
+  .plan-doc th abbr[title],
+  .plan-doc .glance .v abbr[title],
+  .plan-doc .sec-label abbr[title],
+  .plan-doc .co-title abbr[title] {
+    text-decoration: none;
+  }
+
   /* citations
      An inline marker is <a class="cite" href="#r8">8</a>; the brackets come
      from CSS so the markup stays clean and two markers sit together as [7][8].
@@ -654,13 +679,37 @@ const { slug, eyebrow = "Private" } = Astro.props;
     padding-left: 0.6rem;
   }
   .plan-doc ol.refs .rt { color: var(--text); }
+  /* The row is a two-column grid: [N] in the first column, everything else in
+     the second. The URL is the row's third grid item, so without an explicit
+     column it wraps onto a new row and lands under the 2.4rem number, one
+     character per line. Pin it to column 2, under the title it belongs to. */
   .plan-doc ol.refs .ru {
+    grid-column: 2;
     display: block;
     font-family: var(--font-mono);
     font-size: 0.72rem;
     color: var(--text-faint);
     word-break: break-word;
     margin-top: 0.2rem;
+  }
+
+  /* A reference row is only useful if the reader can reach the source. The
+     underline is drawn in --line so 40 rows of mono URL stay quiet, and it
+     picks up the accent on hover. Every one opens in a new tab: the document
+     sits behind a Google gate, and a back button costs another sign-in. */
+  .plan-doc ol.refs a.ru {
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+    text-underline-offset: 2px;
+  }
+  .plan-doc ol.refs a.ru:hover {
+    color: var(--p-accent);
+    text-decoration-color: currentColor;
+  }
+  .plan-doc ol.refs a.ru:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 
   /* callout */
