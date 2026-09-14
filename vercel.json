@@ -37,6 +37,12 @@
       ]
     },
     {
+      "source": "/openlab",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
       "source": "/plan/:path*",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
