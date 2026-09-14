@@ -27,6 +27,7 @@ const DOCS = {
   'budget': 'private/budget.html',
   'member': 'private/member.html',
   'aab': 'private/aab.html',
+  'openlab': 'private/openlab.html',
 };
 
 async function handler(request) {

@@ -1097,6 +1097,15 @@ const { slug, eyebrow = "Private" } = Astro.props;
     const target = id ? doc.querySelector(`[id="${CSS.escape(id)}"]`) : null;
     if (target) target.scrollIntoView();
     else window.scrollTo(0, 0);
+
+    // The document arrives through innerHTML, which never runs a <script> in
+    // it. A page whose content needs behaviour therefore cannot ship that
+    // behaviour inside the document; it puts it in its own page script and
+    // binds here, once the markup exists. Pages with static documents ignore
+    // this and are unaffected.
+    document.dispatchEvent(
+      new CustomEvent("privatedoc:ready", { detail: { slug: docWrap.dataset.slug, root: doc } })
+    );
   }
 
   /** Fetches the document. Returns nothing and puts the gate back on failure. */

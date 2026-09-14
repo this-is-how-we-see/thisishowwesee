@@ -1,412 +1,31 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PrivateDoc from "../components/PrivateDoc.astro";
 
 /**
- * Study page for chromatography data systems and the Agilent OpenLab portfolio.
+ * Study notes on chromatography data systems and the Agilent OpenLab portfolio.
  *
- * noindex, and deliberately absent from src/pages/sitemap.xml.ts. This is
- * preparation material, not a marketing page. Nothing on it is confidential —
- * every fact is sourced from Agilent's own documentation, published earnings
- * calls, or the history of the field — but it has no business in search results.
+ * The content is NOT here. It lives in a private Vercel Blob as
+ * private/openlab.src.html and arrives through /api/private-doc once Google
+ * verifies the reader. This page is the gate plus the styling and behaviour
+ * the document needs.
+ *
+ * The flashcards are why this page has a script at all. A private document is
+ * injected with innerHTML, which never executes a script inside it, so the
+ * behaviour has to live out here and bind after the markup lands. PrivateDoc
+ * fires `privatedoc:ready` for exactly this.
  */
-
-const cards = [
-  // --- the separation itself ---
-  { t: "Chromatography", c: "Separation", d: "Separating a mixture by pushing it through a column. Each compound holds onto the packing differently, so each one comes out at a different time. Greek <em>chroma</em> (colour) + <em>graphein</em> (to write): colour-writing." },
-  { t: "Chromatogram", c: "Separation", d: "The detector's signal plotted over time. The written record the instrument produces. A <strong>chromatograph</strong> is the instrument; a chromatogram is its output." },
-  { t: "Mobile phase", c: "Separation", d: "What carries the sample through the column. A liquid solvent in LC, an inert gas (helium, hydrogen, nitrogen) in GC." },
-  { t: "Stationary phase", c: "Separation", d: "The packing inside the column that each compound sticks to differently. The differential stickiness is what does the separating." },
-  { t: "Retention time", c: "Separation", d: "When a peak comes out. This is the number that says <strong>what</strong> the compound is." },
-  { t: "Peak area", c: "Separation", d: "How big the peak is. This is the number that says <strong>how much</strong>. Peak area and retention time are the only two numbers a chromatogram really gives you." },
-  { t: "Resolution", c: "Separation", d: "How cleanly two adjacent peaks separate from each other. Poor resolution means the software cannot tell where one compound ends and the next begins." },
-
-  // --- instruments ---
-  { t: "LC / HPLC / UHPLC", c: "Instruments", d: "Liquid chromatography. HPLC is high performance, UHPLC ultra-high: higher pressure, smaller particles, faster runs. Agilent's lines are the <strong>1260 and 1290 Infinity</strong>. Handles most pharmaceutical compounds." },
-  { t: "GC", c: "Instruments", d: "Gas chromatography. The mobile phase is a gas, so the sample has to be volatile or made volatile. Agilent's lines are the <strong>8890 and 8860</strong>. Solvents, residual solvents, environmental and petrochemical work." },
-  { t: "LC/MS and GC/MS", c: "Instruments", d: "A mass spectrometer used as the detector. Gives identity by mass rather than by retention time alone." },
-  { t: "HRMS / Q-TOF / TOF", c: "Instruments", d: "High-resolution mass spectrometry. Q-TOF and TOF are instrument types within it. <strong>OpenLab CDS 3.0 brought native Q-TOF and TOF acquisition into the software for the first time.</strong>" },
-  { t: "DAD and FID", c: "Instruments", d: "Common detectors. DAD is a diode-array UV detector, usual on LC. FID is flame ionization, usual on GC. Neither one sees colour, which is why the name <em>chromatography</em> is a fossil." },
-
-  // --- the software's job ---
-  { t: "CDS", c: "Software", d: "<strong>Chromatography Data System.</strong> The software category: instrument control, data acquisition, processing, reporting and the audit trail. The three that matter are Agilent OpenLab CDS, Waters Empower and Thermo Chromeleon." },
-  { t: "Integration", c: "Software", d: "The software deciding where each peak starts and stops, and drawing the baseline under it. <strong>The single most consequential thing a CDS does.</strong> Move the baseline and the area changes, so the reported result changes." },
-  { t: "Method", c: "Software", d: "The recipe: instrument parameters, processing parameters, reporting. In a regulated lab it is validated and under change control, which is why changing software versions is expensive." },
-  { t: "Sequence", c: "Software", d: "The ordered run list for a batch — blanks, standards, samples, check standards — in the order they will be injected." },
-  { t: "Injection", c: "Software", d: "One sample put onto the column. The atomic unit of work, and often the unit that licensing and capacity arguments are fought over." },
-  { t: "Calibration curve", c: "Software", d: "Standards of known concentration give a line of peak area against concentration. An unknown sample's concentration is read off that line." },
-  { t: "System suitability test", c: "Software", d: "<strong>SST.</strong> A short run before the batch proving the instrument is fit today: resolution, peak tailing, repeatability across replicate injections. Fail the SST and the batch does not count." },
-
-  // --- regulated ---
-  { t: "21 CFR Part 11", c: "Regulated", d: "The FDA rule on electronic records and electronic signatures. OpenLab CDS is built against it, along with EU Annex 11, GAMP 5, ISO/IEC 17025 and EPA 40 CFR Part 160." },
-  { t: "Audit trail", c: "Regulated", d: "The tamper-evident record of who did what to the data and when. With e-signature, role-based access, checksums and versioned data files, it is the technical control set that makes a CDS a regulated product." },
-  { t: "Testing into compliance", c: "Regulated", d: "Reprocessing a result until it passes. A standing FDA enforcement finding, and the reason integration and audit trail matter as much as they do." },
-  { t: "IQ / OQ / PQ", c: "Regulated", d: "Installation, Operational and Performance Qualification. The validation cycle a regulated lab must run after changing software. <strong>This is the real cost of an upgrade, and the real reason labs refuse one.</strong>" },
-  { t: "Software Status Bulletin", c: "Regulated", d: "<strong>SSB.</strong> Agilent's published list of every known problem in a product, with fixes and workarounds, derived from Known Problem Reports (KPRs). Enhancement requests are deliberately excluded. A validation team reads it before upgrading." },
-
-  // --- commercial ---
-  { t: "SMA", c: "Commercial", d: "<strong>Software Maintenance Agreement.</strong> An annual contract on top of a perpetual licence. Entitles the customer to the latest version, driver updates, fixes and OS currency. <strong>No active SMA, no support ticket.</strong>" },
-  { t: "Entitlement", c: "Commercial", d: "What the customer is contractually owed. Distinct from what they have installed. <strong>Entitlement is what the vendor sells; adoption is what makes the customer renew. The distance between them is the product problem.</strong>" },
-  { t: "SubscribeNet", c: "Commercial", d: "The portal where Agilent software licences and entitlements are administered. Licence files, renewals, media and updates all run through it." },
-  { t: "Support lifecycle policy", c: "Commercial", d: "Agilent's published policy: <strong>active support for the current version and one version prior.</strong> Limited support begins 18 months after release, or one year after the next minor version. A customer's QA group cites this document in their own procedures." },
-];
-
-const categories = ["All", "Separation", "Instruments", "Software", "Regulated", "Commercial"];
-
-const portfolio = [
-  {
-    name: "OpenLab CDS",
-    role: "Acquisition and processing",
-    body: "The chromatography data system itself: instrument control, data acquisition, peak integration, calibration, reporting and the audit trail. Controls <strong>Agilent and non-Agilent LC, GC, LC/MS and GC/MS</strong> — deliberately, because it lets Agilent take a software account without replacing the hardware first.",
-  },
-  {
-    name: "SLIMS",
-    role: "Sample and workflow management",
-    body: "A LIMS and an analytical ELN together, acquired rather than built. Sample tracking and guided workflows feeding into CDS, integrating with non-Agilent instruments and with business systems such as SAP.",
-  },
-  {
-    name: "OpenLab ELN",
-    role: "Electronic lab notebook",
-    body: "The replacement for a paper notebook: time stamps, audit trails, report capture, e-signatures.",
-  },
-  {
-    name: "OpenLab ECM",
-    role: "Content and data management",
-    body: "Enterprise content management across sites. One point of access across data types and file formats, automating capture of lab data, reports and documents.",
-  },
-];
-
-const tiers = [
-  ["Workstation", "Standalone. One computer, one set of instruments."],
-  ["Workstation Plus", "Standalone with content management attached."],
-  ["Client / Server", "Networked. Central backup, shared methods and sequences, remote reprocessing. Agilent recommends this above roughly three workstations."],
-  ["Cloud-enabled", "The current direction of the portfolio."],
-];
-
-const legacy = [
-  ["ChemStation", "Agilent's original CDS, an evolution of the Hewlett-Packard ChemStation System. Enormous installed base, single-workstation heritage, still in production in thousands of labs."],
-  ["EZChrom", "Came in from Scientific Software."],
-  ["Galaxie", "Came in with the Varian acquisition."],
-  ["CDS ChemStation / EZChrom Editions", "Transitional products that put the old engines under OpenLab data storage."],
-  ["OpenLab CDS 2.x → 3.0", "The unified modern product. 3.0 shipped May 2026."],
-];
-
-const timeline = [
-  { y: "1903", h: "Tsvet runs the first column", b: "Mikhail Tsvet pours plant pigments through a glass column packed with calcium carbonate and washes it with petroleum ether. The pigments separate into visible coloured bands. Every element of a modern instrument is already there." },
-  { y: "1906", h: "The word appears in print", b: "Tsvet publishes two papers on chlorophyll in <em>Berichte der Deutschen Botanischen Gesellschaft</em> and names the method chromatography. His surname, Цвет, is the Russian word for colour — historians treat the pun as a plausible second reason for the choice." },
-  { y: "1906–31", h: "Forgotten", b: "The method sits unused for roughly a quarter century. Tsvet dies in 1919." },
-  { y: "1931", h: "Rediscovery", b: "Edgar Lederer and Richard Kuhn use column chromatography to separate carotenes. The field restarts." },
-  { y: "1941", h: "Partition chromatography", b: "Archer Martin and Richard Synge develop it working on amino acid mixtures. The same paper predicts gas chromatography." },
-  { y: "1944", h: "Paper chromatography", b: "Martin and Synge again. The technique spreads fast because it needs almost no equipment." },
-  { y: "1952", h: "Nobel Prize, and GC gets built", b: "Martin and Synge take the Nobel Prize in Chemistry. The same year, Martin and Anthony James build gas chromatography, using an inert carrier gas as the mobile phase. A botanist's separation trick becomes an industrial measurement." },
-  { y: "1965", h: "HP buys F&M Scientific", b: "A gas chromatograph maker. This purchase is how Hewlett-Packard entered analytical instruments at all, and it leads to HP's first mass spectrometer.", mark: true },
-  { y: "1970", h: "HPLC is named", b: "Csaba Horváth builds the first modern high performance liquid chromatograph and coins the acronym in a paper at the Pittsburgh Conference. Pittcon is still the field's trade show." },
-  { y: "1999", h: "Agilent spins out of HP", b: "Taking the chemical analysis lines with it, in what was then the largest IPO in Silicon Valley history. ChemStation carries its HP-era name forward.", mark: true },
-  { y: "Nov 2024", h: "Software moves into CrossLab", b: "Agilent reorganizes into three market-facing groups. Agilent CrossLab Group, which holds Consumables and Services, <strong>now also holds software and informatics at a strategic level across the company.</strong> OpenLab becomes part of a recurring-revenue business.", mark: true },
-  { y: "May 2026", h: "OpenLab CDS 3.0 ships", b: "A unified platform for chromatography, mass spec and spectroscopy across the portfolio, including high-resolution MS for the first time. The support clock moves with it: 3.0 becomes current, 2.8 becomes one prior, and <strong>2.7 and below fall to limited support.</strong>", mark: true },
-];
-
-const refs = [
-  { g: "Agilent product", items: [
-    ["OpenLab CDS", "https://www.agilent.com/en/product/software-informatics/analytical-software-suite/chromatography-data-systems/openlab-cds"],
-    ["OpenLab software suite", "https://www.agilent.com/en/product/software-informatics/analytical-software-suite"],
-    ["What's new in the latest release", "https://www.agilent.com/en/support/software-informatics/analytical-software-suite/chromatography-data-systems/openlab-cds/faq-whats-new-in-openlab-cds"],
-    ["Upgrade to the newest version", "https://www.agilent.com/en/product/software-informatics/analytical-software-suite/chromatography-data-systems/openlab-cds/upgrade"],
-    ["SLIMS", "https://www.agilent.com/en/product/software-informatics/lab-workflow-management-software/slims"],
-    ["OpenLab ECM", "https://www.agilent.com/en/product/software-informatics/analytical-software-suite/data-management/openlab-ecm"],
-  ]},
-  { g: "Lifecycle, support and compliance", items: [
-    ["OpenLab software support lifecycle policy", "https://www.agilent.com/en/support/agilent-openlab-software-support-lifecycle-policy"],
-    ["OpenLab Software Status Bulletin (SSB)", "https://www.agilent.com/en/support/software-informatics/analytical-software-suite/openlab-software-status-bulletin"],
-    ["Does your electronic data system meet 21 CFR Part 11", "https://www.agilent.com/cs/library/articlereprints/public/executivesummary-electronic-data-systems-LCGC-openlab-agilent.pdf"],
-    ["Advantages of Software Maintenance Agreements", "https://www.agilent.com/cs/library/flyers/public/flyer-client-server-software-maintenance-agreements-openlab-5994-1106EN-agilent.pdf"],
-    ["Migration tools manual", "https://www.agilent.com/cs/library/usermanuals/public/OpenLabMigrationTool_en.pdf"],
-    ["OpenLab CDS 3.0 release notes", "https://www.agilent.com/library/usermanuals/public/CDS_v3.0_ReleaseNotes_en.pdf"],
-  ]},
-  { g: "Agilent the company", items: [
-    ["Company history", "https://www.agilent.com/about/companyinfo/history/"],
-    ["New organizational structure, Nov 2024", "https://www.investor.agilent.com/news-and-events/news/news-details/2024/Agilent-Announces-New-Organizational-Structure-to-Support-its-Market-Focused-Strategy/default.aspx"],
-    ["Q3 FY2026 results", "https://www.biospace.com/press-releases/agilent-reports-third-quarter-fiscal-year-2026-financial-results"],
-    ["Q3 FY2026 earnings call transcript", "https://www.fool.com/earnings/call-transcripts/2026/08/31/agilent-a-q3-2026-earnings-call-transcript/"],
-    ["Q1 FY2026 earnings call transcript", "https://www.fool.com/earnings/call-transcripts/2026/02/25/agilent-a-q1-2026-earnings-call-transcript/"],
-  ]},
-  { g: "History of the field", items: [
-    ["Mikhail Tsvet", "https://en.wikipedia.org/wiki/Mikhail_Tsvet"],
-    ["The centenary of “chromatography”", "https://www.chromatographyonline.com/view/centenary-chromatography"],
-    ["Nobel Prize in Chemistry 1952, Martin and Synge", "https://www.nobelprize.org/prizes/chemistry/1952/summary/"],
-    ["Csaba Horváth and the first modern HPLC", "https://www.chromatographyonline.com/view/csaba-horv-th-and-development-first-modern-high-performance-liquid-chromatograph"],
-    ["HP’s move into analytical instruments", "https://www.hewlettpackardhistory.com/item/combating-pollution/"],
-    ["Chromatography data systems: perspectives and trends", "https://www.chromatographyonline.com/view/chromatography-data-systems-perspectives-principles-and-trends"],
-  ]},
-];
 ---
 
 <Layout
-  title="OpenLab & chromatography — study notes"
-  description="Working notes on chromatography data systems and the Agilent OpenLab portfolio: vocabulary, the software, how the field got here, and what a lifecycle product manager does with it."
+  title="Lab software — private"
+  description="Private study notes."
   noindex={true}
 >
-  <header class="page-head">
-    <div class="container">
-      <p class="eyebrow">Study notes</p>
-      <h1>Chromatography data systems. <span class="h1-beat">And what OpenLab is.</span></h1>
-      <p>
-        Working notes on a field I came to from the neighbouring one. The vocabulary, the software,
-        how it got here, and what the job of running its lifecycle actually looks like. Every fact
-        here is sourced from Agilent's own documentation, published earnings calls, or the recorded
-        history of the technique. The references are at the bottom, grouped.
-      </p>
-      <p class="ol-toc">
-        <a href="#cards">Flashcards</a>
-        <a href="#software">The software</a>
-        <a href="#timeline">Timeline</a>
-        <a href="#day">The day to day</a>
-        <a href="#refs">References</a>
-      </p>
-    </div>
-  </header>
-
-  <!-- ===================== FLASHCARDS ===================== -->
-  <div class="section tight" id="cards">
-    <div class="container">
-      <h2 class="res-head">Flashcards</h2>
-      <p>
-        Twenty-eight terms. Click a card to turn it over, or tab to it and press Enter. Filter by
-        group, or shuffle when the order starts doing the remembering for you.
-      </p>
-
-      <div class="ol-controls">
-        <div class="ol-filters" role="group" aria-label="Filter flashcards by group">
-          {categories.map((cat, i) => (
-            <button type="button" class:list={["ol-chip", { "is-on": i === 0 }]} data-cat={cat}>
-              {cat}
-            </button>
-          ))}
-        </div>
-        <div class="ol-actions">
-          <button type="button" class="button fit small" id="ol-shuffle">Shuffle</button>
-          <button type="button" class="button fit small" id="ol-flipall">Flip all</button>
-          <p class="ol-count" id="ol-count" aria-live="polite"></p>
-        </div>
-      </div>
-
-      <div class="ol-deck" id="ol-deck">
-        {cards.map((card) => (
-          <button type="button" class="ol-card" data-cat={card.c} aria-pressed="false">
-            <span class="ol-card-inner">
-              <span class="ol-face ol-front">
-                <span class="ol-cat">{card.c}</span>
-                <span class="ol-term">{card.t}</span>
-                <span class="ol-hint">turn over</span>
-              </span>
-              <span class="ol-face ol-back">
-                <span class="ol-def" set:html={card.d} />
-              </span>
-            </span>
-          </button>
-        ))}
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================== SOFTWARE ===================== -->
-  <div class="section tight" id="software">
-    <div class="container">
-      <h2 class="res-head">The software</h2>
-
-      <p>
-        A CDS in a pharmaceutical QC lab is not lab software in the ordinary sense. <strong>Its
-        output is the release decision for a drug lot</strong> — the number it reports is what says a
-        batch ships or does not. That is why the product surface is audit trail, electronic
-        signature, role-based access, checksums, versioned data files and locked processing methods,
-        and why a new version cannot simply be installed.
-      </p>
-
-      <h3 class="ol-h3">The portfolio</h3>
-      <div class="ol-grid">
-        {portfolio.map((p) => (
-          <article class="ol-panel">
-            <p class="ol-panel-kicker">{p.role}</p>
-            <h4 class="ol-panel-title">{p.name}</h4>
-            <p set:html={p.body} />
-          </article>
-        ))}
-      </div>
-
-      <h3 class="ol-h3">Deployment tiers</h3>
-      <p>
-        The ladder is commercial as much as technical. Moving a customer up it is revenue, and it
-        usually rides along with a version migration.
-      </p>
-      <div class="table-wrapper">
-        <table class="alt">
-          <thead><tr><th>Tier</th><th>What it is</th></tr></thead>
-          <tbody>
-            {tiers.map(([a, b]) => (<tr><td><strong>{a}</strong></td><td>{b}</td></tr>))}
-          </tbody>
-        </table>
-      </div>
-
-      <h3 class="ol-h3">The legacy estate</h3>
-      <p>
-        Agilent has one of the oldest continuously accumulated installed bases in the industry, and a
-        deep installed base is an asset and a liability at once.
-      </p>
-      <div class="table-wrapper">
-        <table class="alt">
-          <thead><tr><th>Product</th><th>Where it came from</th></tr></thead>
-          <tbody>
-            {legacy.map(([a, b]) => (<tr><td><strong>{a}</strong></td><td>{b}</td></tr>))}
-          </tbody>
-        </table>
-      </div>
-
-      <div class="ol-note">
-        <p>
-          <strong>The detail that makes migration defensible.</strong> Agilent's migration tools carry
-          <strong> the same integration algorithm</strong> across from ChemStation and EZChrom. That
-          matters because the migrated method then produces <strong>the same numbers</strong>, which
-          is the only argument that gets a QA group to accept revalidation. A migration path that
-          changes results is not a migration path.
-        </p>
-      </div>
-
-      <h3 class="ol-h3">The competition</h3>
-      <p>
-        Three vendors anchor a market worth roughly $3.5&nbsp;billion in 2024 and forecast toward
-        $5.7&nbsp;billion by 2035. All three couple instruments to proprietary software, which builds
-        switching cost into the installed base.
-      </p>
-      <div class="table-wrapper">
-        <table class="alt">
-          <thead><tr><th>Vendor</th><th>Product</th><th>Position</th></tr></thead>
-          <tbody>
-            <tr><td>Waters</td><td>Empower</td><td>The incumbent in pharmaceutical QC, with the deepest regulator acceptance. The FDA's own field science laboratories run it.</td></tr>
-            <tr><td>Thermo Fisher</td><td>Chromeleon</td><td>Launched 1996. Strong compliance coverage and global networking, now including high-resolution MS.</td></tr>
-            <tr><td>Agilent</td><td>OpenLab CDS</td><td>The largest instrument installed base to sell into, and non-Agilent instrument control to sell outward.</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================== TIMELINE ===================== -->
-  <div class="section tight" id="timeline">
-    <div class="container">
-      <h2 class="res-head">How the field got here</h2>
-      <p>
-        From a Russian botanist's glass column to a validated enterprise platform, in about 120
-        years. The marked entries are Agilent's own lineage.
-      </p>
-
-      <ol class="ol-timeline">
-        {timeline.map((e) => (
-          <li class:list={["ol-tl-item", { "is-mark": e.mark }]}>
-            <span class="ol-tl-year">{e.y}</span>
-            <div class="ol-tl-body">
-              <h3 class="ol-tl-head">{e.h}</h3>
-              <p set:html={e.b} />
-            </div>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </div>
-
-  <!-- ===================== DAY TO DAY ===================== -->
-  <div class="section tight" id="day">
-    <div class="container">
-      <h2 class="res-head">The day to day</h2>
-
-      <p>
-        A product manager on the lifecycle side of a CDS owns an offer, a programme and a number,
-        rather than a delivery team. The clearest signal is who the work touches: <strong>Product
-        Management, R&amp;D, Marketing, Sales, Services, Product Support, Licensing, IT and Customer
-        Success.</strong> R&amp;D is one of nine. Licensing and IT being named at all says the
-        entitlement plumbing is part of the job.
-      </p>
-
-      <div class="ol-note">
-        <p>
-          <strong>The problem underneath all of it.</strong> A customer pays their maintenance
-          agreement every year, which entitles them to the newest version. They never install it,
-          because installing it costs an IQ and OQ cycle, method revalidation and downtime on
-          instruments that are producing releasable results. So the vendor books the revenue, the
-          customer gets nothing they can point to, their version ages out of support anyway, and at
-          renewal somebody asks what they are paying for. <strong>Entitlement is what gets sold.
-          Adoption is what makes them renew. Closing the distance between the two is the job.</strong>
-        </p>
-      </div>
-
-      <div class="ol-grid">
-        <article class="ol-panel">
-          <p class="ol-panel-kicker">Most weeks</p>
-          <h4 class="ol-panel-title">Coordination</h4>
-          <ul>
-            <li>Standing syncs across those nine functions.</li>
-            <li>Escalations from Services and Support. Which accounts are stuck, on which version, why.</li>
-            <li>Requests from Sales when an account will not renew. Exceptions, deal-desk questions, judgement calls.</li>
-            <li>Licensing and entitlement problems arriving from the field.</li>
-          </ul>
-        </article>
-        <article class="ol-panel">
-          <p class="ol-panel-kicker">Months and quarters</p>
-          <h4 class="ol-panel-title">The scoreboard</h4>
-          <ul>
-            <li>Attach rate, renewal rate, churn, and share of the base on the current version.</li>
-            <li>Migration programme status, and what is blocking the rest.</li>
-            <li>Pricing and packaging across maintenance tiers and add-on products.</li>
-            <li>Business cases for the products under the seat.</li>
-            <li>Release readiness for the maintenance train: service releases and drivers.</li>
-          </ul>
-        </article>
-        <article class="ol-panel">
-          <p class="ol-panel-kicker">Each year</p>
-          <h4 class="ol-panel-title">Lifecycle</h4>
-          <ul>
-            <li>End-of-support announcements and the communications plan around them.</li>
-            <li>The offer roadmap, which is not a feature roadmap.</li>
-            <li>The budget cycle behind it.</li>
-          </ul>
-        </article>
-        <article class="ol-panel">
-          <p class="ol-panel-kicker">What it produces</p>
-          <h4 class="ol-panel-title">Documents</h4>
-          <ul>
-            <li>The support lifecycle policy, which customers cite in their own procedures.</li>
-            <li>The Software Status Bulletin, and the version support matrix.</li>
-            <li>End-of-support FAQs and migration playbooks.</li>
-            <li>Offer and SKU definitions, price lists, packaging proposals.</li>
-            <li>Battlecards, field FAQs, renewal playbooks.</li>
-            <li>Validation and comparability packages supporting revalidation.</li>
-          </ul>
-        </article>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================== REFERENCES ===================== -->
-  <div class="section tight" id="refs">
-    <div class="container">
-      <h2 class="res-head">References</h2>
-      <p>Everything above traces to one of these. Opens in a new tab.</p>
-
-      <div class="ol-grid">
-        {refs.map((group) => (
-          <article class="ol-panel">
-            <h4 class="ol-panel-title">{group.g}</h4>
-            <ul class="ol-reflist">
-              {group.items.map(([label, href]) => (
-                <li><a href={href} target="_blank" rel="noopener noreferrer">{label}</a></li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </div>
-    </div>
-  </div>
+  <PrivateDoc slug="openlab" eyebrow="Study notes" />
 </Layout>
 
-<style>
+<style is:global>
   .ol-toc {
     display: flex;
     flex-wrap: wrap;
@@ -566,8 +185,8 @@ const refs = [
     color: var(--text-dim);
   }
 
-  .ol-def :global(strong) { color: var(--text); }
-  .ol-def :global(em) { color: var(--text); font-style: italic; }
+  .ol-def strong { color: var(--text); }
+  .ol-def em { color: var(--text); font-style: italic; }
 
   .ol-card.is-hidden { display: none; }
 
@@ -680,10 +299,16 @@ const refs = [
 </style>
 
 <script>
-  const deck = document.getElementById("ol-deck");
-  const countEl = document.getElementById("ol-count");
+  // Bind once the gated document is on the page. Everything below assumes the
+  // markup does not exist yet at parse time, because it does not.
+  document.addEventListener("privatedoc:ready", (event) => {
+    const root = (event as CustomEvent).detail?.root as HTMLElement | undefined;
+    if (!root) return;
 
-  if (deck && countEl) {
+    const deck = root.querySelector("#ol-deck");
+    const countEl = root.querySelector("#ol-count");
+    if (!deck || !countEl) return;
+
     const cards = () => Array.from(deck.querySelectorAll(".ol-card"));
 
     const updateCount = () => {
@@ -691,27 +316,27 @@ const refs = [
       countEl.textContent = `${visible.length} card${visible.length === 1 ? "" : "s"}`;
     };
 
-    // Flip on click. aria-pressed carries the state, so the CSS and the
-    // accessibility tree never disagree about which side is showing.
-    deck.addEventListener("click", (event) => {
-      const card = event.target.closest(".ol-card");
+    // aria-pressed carries the flip state, so the CSS and the accessibility
+    // tree never disagree about which face is showing.
+    deck.addEventListener("click", (e) => {
+      const card = (e.target as HTMLElement).closest(".ol-card");
       if (!card) return;
       card.setAttribute("aria-pressed", card.getAttribute("aria-pressed") === "true" ? "false" : "true");
     });
 
-    document.querySelectorAll(".ol-chip").forEach((chip) => {
+    root.querySelectorAll(".ol-chip").forEach((chip) => {
       chip.addEventListener("click", () => {
-        const cat = chip.dataset.cat;
-        document.querySelectorAll(".ol-chip").forEach((c) => c.classList.toggle("is-on", c === chip));
+        const cat = (chip as HTMLElement).dataset.cat;
+        root.querySelectorAll(".ol-chip").forEach((c) => c.classList.toggle("is-on", c === chip));
         cards().forEach((card) => {
-          card.classList.toggle("is-hidden", cat !== "All" && card.dataset.cat !== cat);
+          card.classList.toggle("is-hidden", cat !== "All" && (card as HTMLElement).dataset.cat !== cat);
           card.setAttribute("aria-pressed", "false");
         });
         updateCount();
       });
     });
 
-    document.getElementById("ol-shuffle")?.addEventListener("click", () => {
+    root.querySelector("#ol-shuffle")?.addEventListener("click", () => {
       const list = cards();
       for (let i = list.length - 1; i > 0; i -= 1) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -722,12 +347,12 @@ const refs = [
       cards().forEach((card) => card.setAttribute("aria-pressed", "false"));
     });
 
-    document.getElementById("ol-flipall")?.addEventListener("click", () => {
+    root.querySelector("#ol-flipall")?.addEventListener("click", () => {
       const visible = cards().filter((c) => !c.classList.contains("is-hidden"));
       const anyFront = visible.some((c) => c.getAttribute("aria-pressed") !== "true");
       visible.forEach((c) => c.setAttribute("aria-pressed", anyFront ? "true" : "false"));
     });
 
     updateCount();
-  }
+  });
 </script>

@@ -21,6 +21,7 @@ export const DOCS = [
   { source: 'private/budget.src.html', pathname: 'private/budget.html' },
   { source: 'private/member.src.html', pathname: 'private/member.html' },
   { source: 'private/aab.src.html', pathname: 'private/aab.html' },
+  { source: 'private/openlab.src.html', pathname: 'private/openlab.html' },
 ];
 
 export const STATE_FILE = 'private/.publish-state.json';
