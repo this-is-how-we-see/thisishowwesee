@@ -19,3 +19,6 @@ private/
 
 # Google Drive staging directory. Never commit it.
 .tmp.driveupload/
+
+# Astro local cache and settings. Generated, machine-specific.
+.astro/
