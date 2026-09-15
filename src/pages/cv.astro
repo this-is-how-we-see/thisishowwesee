@@ -11,6 +11,7 @@ const roles = [
       "Defined how three spectral analyzers integrate with an automated quality control platform running standard cell therapy flow panels, and operated them during integration testing.",
       "Specified requirements for integrating a GMP closed cell sorter into the manufacturing process, moving cell selection inside the closed system rather than leaving it a separate open step.",
       "Delivered the traceability and record-keeping that allow the platform to be used for real patient doses under FDA-regulated quality systems.",
+      "Migrated the requirements baseline from Orcanos to Jama Connect, which took the database design and the ETL to do.",
       "Demonstrate the Cell Shuttle and Cell Q to customers, work the CAR-TCR Summit booth, and run structured user research with the analysts who operate them.",
     ],
   },
@@ -21,6 +22,7 @@ const roles = [
     points: [
       "Led product for a genomics research platform using machine learning to turn sequencing data into evidence pharmaceutical and clinical users could act on.",
       "Took a diagnostic monitoring system to launch with NIH RADx Tech support, alongside a FedRAMP-authorized platform used under emergency authorization to triage patients by diagnosed variant.",
+      "Moved the team's ticketing onto Jira, which took the same database design and ETL work.",
     ],
   },
   {
@@ -47,6 +49,13 @@ const roles = [
       "Authored the cGMP protocol for isolating cryopreserved cord-blood regulatory T cells for autologous infusion, achieved cGMP certification, and managed IRB and IACUC protocols.",
     ],
   },
+];
+
+const built = [
+  { year: "Current", body: '<strong>panel-qc</strong> &middot; A panel-agnostic engine that computes a spillover spread matrix from single stains and works out which markers need an FMO. 45 passing tests, validated two ways: a synthetic round trip that plants known coefficients and checks they come back, and real bead controls, where it independently found a nine-color panel&rsquo;s design flaw.' },
+  { year: "Current", body: '<strong>thisishowwesee.com</strong> &middot; This site. Astro, deployed on Vercel from GitHub, with a members area behind a Google sign-in and a private document store on Vercel Blob.' },
+  { year: "Current", body: '<strong>Siskiyou Singers</strong> &middot; Website for a community chorus, running on Neon Postgres.' },
+  { year: "Current", body: '<strong>Euchre odds simulator</strong> &middot; Monte Carlo trials across hand, seat, and upcard to work out whether calling is the right move, then shows its reasoning.' },
 ];
 
 const patents = [
@@ -95,14 +104,15 @@ const memberships = [
 ];
 ---
 
-<Layout title="CV — Howie Seay, Product Development Specialist" description="Howie Seay's CV: product development at Cellares, Rosalind, and BD/FlowJo, plus core facility leadership at the University of Florida. Two granted patents.">
+<Layout title="CV — Howie Seay, Product Development Specialist" description="Howie Seay's CV: product development at Cellares, Rosalind, and BD/FlowJo, plus core facility leadership at the University of Florida. Two granted patents, and the software he builds himself.">
   <header class="page-head">
     <div class="container">
       <p class="eyebrow">Curriculum Vitae</p>
       <h1>Fifteen years making cells count</h1>
       <p>
         From running fee-for-service cytometry cores to leading product for an automated cell
-        therapy platform: the instruments, the software, and the science in between.
+        therapy platform: the instruments, the software, and the science in between. I still build,
+        so the code, the algorithms, and the tests are here too.
       </p>
     </div>
   </header>
@@ -127,6 +137,15 @@ const memberships = [
           ))
         }
       </ol>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container">
+      <p class="eyebrow">Built</p>
+      <ul class="entry-list">
+        {built.map((e) => <li><span class="year">{e.year}</span><span set:html={e.body} /></li>)}
+      </ul>
     </div>
   </section>
 

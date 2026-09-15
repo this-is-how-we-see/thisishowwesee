@@ -14,7 +14,7 @@ const schema = [
 
 <Layout
   title="About Howie Seay — Product Development Specialist"
-  description="Howie Seay: fifteen years of product development in scientific instruments, analysis software, and cell therapy manufacturing. Two patents, SCYM(ASCP)."
+  description="Howie Seay: fifteen years of product development in scientific instruments, analysis software, and cell therapy manufacturing. Builds the websites, the algorithms and the test suites too. Two patents, SCYM(ASCP)."
   schema={schema}
 >
   <header class="page-head">
@@ -77,9 +77,55 @@ const schema = [
 
   <section class="section">
     <div class="container">
+      <p class="eyebrow">02 / Hands on</p>
+      <h2>What I build myself</h2>
+      <p style="color: var(--text-dim); margin-bottom: 2.5rem;">
+        Product leadership is most of the job. This is the other part, and it is the reason I can
+        tell when an estimate is wrong.
+      </p>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <p class="feature-kicker">Websites</p>
+          <h3>Built and delivered, end to end</h3>
+          <p>
+            This site is mine: Astro, deployed on Vercel from GitHub, with a members area behind a
+            Google sign-in and a private document store on Vercel Blob. The Siskiyou Singers site
+            runs on Neon Postgres. Design, schema, build, deploy.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <p class="feature-kicker">Algorithms</p>
+          <h3>The math, not a wrapper around it</h3>
+          <p>
+            panel-qc computes a spillover spread matrix from single stains and works out which
+            markers need an FMO. Run against a nine-color human T-cell panel, it found that
+            panel's real design flaw on its own: two PE tandems spreading into each other an
+            order of magnitude above anything else in the matrix. My granted patent is a method for
+            modeling and minimizing the same effect.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <p class="feature-kicker">Automated testing</p>
+          <h3>Proof the thing does what it says</h3>
+          <p>
+            panel-qc carries 45 passing tests, including a synthetic round trip that plants known
+            coefficients and checks that they come back. At Cellares I built the tool that proves
+            the software meets specification, which replaced a commercial product the company was
+            paying for.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
       <div class="split">
         <div>
-          <p class="eyebrow">02 / Record</p>
+          <p class="eyebrow">03 / Record</p>
           <h2>The long version</h2>
           <p>
             Fifteen years of it: fee-for-service cytometry and sorting cores at the University of
@@ -101,7 +147,7 @@ const schema = [
 
   <section class="section">
     <div class="container">
-      <p class="eyebrow">03 / Resources</p>
+      <p class="eyebrow">04 / Resources</p>
       <h2>Flow cytometry, mapped</h2>
       <p>
         A curated guide to the field: the communities worth joining, the books worth reading, the
@@ -116,7 +162,7 @@ const schema = [
     <div class="container">
       <div class="split">
         <div>
-          <p class="eyebrow">04 / Elsewhere</p>
+          <p class="eyebrow">05 / Elsewhere</p>
           <h2>Get SH*t Done</h2>
           <p>
             GS*D helps small businesses grow, with skill-building workshops for the DIY-inclined and
@@ -174,7 +220,7 @@ const schema = [
           </svg>
         </div>
         <div>
-          <p class="eyebrow">05 / Projects</p>
+          <p class="eyebrow">06 / Projects</p>
           <h2>Things built to settle an argument</h2>
           <p>
             Side projects tend to start as a question nobody could answer at the table. The Euchre
@@ -189,7 +235,7 @@ const schema = [
 
   <section class="section">
     <div class="container">
-      <p class="eyebrow">06 / Contact</p>
+      <p class="eyebrow">07 / Contact</p>
       <h2>Let's talk</h2>
       <p>
         Flow cytometry, product work in life sciences, or something else entirely. Email reaches me
