@@ -1,5 +1,6 @@
 ---
 import Icon from "../components/Icon.astro";
+import Analytics from "@vercel/analytics/astro";
 import "../styles/main.css";
 
 interface Props {
@@ -283,5 +284,8 @@ const year = 2026;
         if (event.key === "Escape" && panel?.classList.contains("visible")) setNav(false);
       });
     </script>
+
+    {/* Cookieless page counts. See /privacy, which describes exactly this. */}
+    <Analytics />
   </body>
 </html>
