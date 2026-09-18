@@ -1,0 +1,127 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const updated = "September 18, 2026";
+
+const schema = [
+  {
+    "@type": "WebPage",
+    "@id": "https://thisishowwesee.com/privacy#webpage",
+    url: "https://thisishowwesee.com/privacy",
+    name: "Privacy Policy — How We See LLC",
+    dateModified: "2026-09-18",
+    publisher: { "@id": "https://thisishowwesee.com/#business" },
+  },
+];
+---
+
+<Layout
+  title="Privacy Policy — How We See LLC"
+  description="How We See LLC's privacy policy: what this website collects, what the software built here does with Google account data, and how to get in touch."
+  schema={schema}
+>
+  <header class="page-head">
+    <div class="container">
+      <p class="eyebrow">Legal</p>
+      <h1>Privacy <span class="accent">Policy</span></h1>
+      <p>
+        How We See LLC is a one-person product development consultancy run by Howie Seay.
+        This page covers two separate things: what this website does with your information,
+        and what the software built under this name does with Google account data.
+        Last updated {updated}.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">01 / This website</p>
+      <h2>The site collects nothing</h2>
+      <p style="color: var(--text-dim);">
+        thisishowwesee.com is a set of static pages. There is no analytics script, no tracking
+        pixel, no advertising network and no cookie set by this site. Nobody is building a profile
+        of your visit, because there is nothing here that could.
+      </p>
+      <p style="color: var(--text-dim); margin-top: 1.25rem;">
+        The site is hosted on Vercel, and like every web host, Vercel records standard server logs
+        containing IP addresses, timestamps and requested URLs. Those logs exist to keep the
+        service running and to stop abuse.
+        <a href="https://vercel.com/legal/privacy-policy" rel="noopener">Vercel's privacy policy</a>
+        governs them. Fonts load from Google Fonts, which means Google sees the request for the
+        font file.
+      </p>
+      <p style="color: var(--text-dim); margin-top: 1.25rem;">
+        If you email me, I keep the email. I do not add correspondents to a mailing list, and I do
+        not sell, rent or share contact details with anyone.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">02 / Software and Google account data</p>
+      <h2>Private tools, one user</h2>
+      <p style="color: var(--text-dim);">
+        Some software built under the How We See name signs in with Google and reads Google
+        account data. Seay Mail MCP is one such application. These are private tools that Howie
+        Seay runs on his own computer, against his own Google accounts. They are not products,
+        they are not offered to the public, and they have no other users.
+      </p>
+      <p style="color: var(--text-dim); margin-top: 1.25rem;">
+        These applications may request access to Gmail, Google Drive, Google Calendar, Google
+        Docs, Google Sheets, Google Tasks, Google Contacts, Google Chat and Google Apps Script.
+        Access tokens and any retrieved content stay on the local machine. Nothing is copied to a
+        server operated by How We See LLC, because there is no such server. Nothing is transmitted
+        to a third party, used for advertising, sold, or used to train a machine learning model.
+      </p>
+      <p style="color: var(--text-dim); margin-top: 1.25rem;">
+        Access can be withdrawn at any time from the
+        <a href="https://myaccount.google.com/permissions" rel="noopener">Google account
+        permissions page</a>, which revokes the tokens immediately.
+      </p>
+
+      <div class="feature-grid" style="margin-top: 2.5rem;">
+        <article class="feature-card">
+          <p class="feature-kicker">Limited Use</p>
+          <p style="color: var(--text-dim);">
+            How We See LLC's use of information received from Google APIs adheres to the
+            <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener">Google
+            API Services User Data Policy</a>, including the Limited Use requirements.
+          </p>
+        </article>
+        <article class="feature-card">
+          <p class="feature-kicker">Retention</p>
+          <p style="color: var(--text-dim);">
+            Tokens live in a credentials file on one laptop and are deleted when the tool is
+            removed or access is revoked. No copy exists anywhere else.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">03 / Consulting work</p>
+      <h2>Client material</h2>
+      <p style="color: var(--text-dim);">
+        Consulting engagements often involve confidential technical and commercial information.
+        That material is handled under whatever agreement governs the engagement, and the terms of
+        that agreement take priority over this page. Client information is never used to train a
+        machine learning model and is never shared with another client.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">04 / Contact</p>
+      <h2>Questions</h2>
+      <p style="color: var(--text-dim);">
+        Write to <a href="mailto:howie@thisishowwesee.com">howie@thisishowwesee.com</a> with any
+        question about this policy, or to ask what information is held about you. If this policy
+        changes, the date at the top of the page changes with it.
+      </p>
+    </div>
+  </section>
+</Layout>
